@@ -6,7 +6,8 @@ import GameScreen from './screens/inGame/GameScreen';
 import ContinueGame from './screens/inGame/ContinueGame';
 import Synopsis from './Synopsis';
 import Choix_Hero from './Choix_Hero';
-import Caracteristiques from './Caracteristiques'
+import Caracteristiques from './Caracteristiques';
+import Create_User from './Create_User';
 
 import GameOver from './screens/inGame/GameOver';
 
@@ -25,6 +26,7 @@ export default function App() {
         <Stack.Screen name="Synopsis" component={Synopsis} options={{headerShown:false}} />
         <Stack.Screen name="Choix_Hero" component={Choix_Hero} options={{headerShown:false}} />
         <Stack.Screen name="Caracteristiques" component={Caracteristiques} options={{headerShown:false}} />
+        <Stack.Screen name="Create_User" component={Create_User} options={{headerShown:false}} />
         <Stack.Screen name="ContinueGame" component={ContinueGame} options={{headerShown:false}} />
 
 

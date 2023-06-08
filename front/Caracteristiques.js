@@ -9,19 +9,19 @@ const Caracteristiques = ({ onUpdateCaracteristiques }) => {
   const [pointsRestants, setPointsRestants] = useState(5);
 
   const incrementCaracteristique = (caracteristique) => {
-    if (pointsRestants > 0 && caracteristique < 7) {
+    if (pointsRestants > 0 && caracteristique < 6) {
       switch (caracteristique) {
         case 'force':
-          setForce((prevForce) => prevForce + 1);
+          setForce((prevForce) => Math.min(prevForce + 1, 7));
           break;
         case 'charisme':
-          setCharisme((prevCharisme) => prevCharisme + 1);
+          setCharisme((prevCharisme) => Math.min(prevCharisme + 1, 7));
           break;
         case 'endurance':
-          setEndurance((prevEndurance) => prevEndurance + 1);
+          setEndurance((prevEndurance) => Math.min(prevEndurance + 1, 7));
           break;
         case 'sante':
-          setSante((prevSante) => prevSante + 1);
+          setSante((prevSante) => Math.min(prevSante + 1, 7));
           break;
         default:
           break;
@@ -75,81 +75,81 @@ const Caracteristiques = ({ onUpdateCaracteristiques }) => {
     <View style={styles.container}>
       <View style={styles.textContainer}>
         <Text style={styles.pointsRestantsText}>Points restants: {pointsRestants}</Text>
-        <View style={styles.caracteristiqueContainer}>
-          <Text style={styles.caracteristiqueText}>Force: {force}</Text>
-          <View style={styles.buttonContainer}>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => incrementCaracteristique('force')}
-              disabled={pointsRestants === 0 || force === 7}
-            >
-              <Text style={styles.buttonText}>+</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => decrementCaracteristique('force')}
-              disabled={force === 3}
-            >
-              <Text style={styles.buttonText}>-</Text>
-            </TouchableOpacity>
-          </View>
+      </View>
+      <View style={styles.caracteristiqueContainer}>
+        <Text style={styles.caracteristiqueText}>Force: {force}</Text>
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => incrementCaracteristique('force')}
+            disabled={pointsRestants === 0 || force === 7}
+          >
+            <Text style={styles.buttonText}>+</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => decrementCaracteristique('force')}
+            disabled={force === 3}
+          >
+            <Text style={styles.buttonText}>-</Text>
+          </TouchableOpacity>
         </View>
-        <View style={styles.caracteristiqueContainer}>
-          <Text style={styles.caracteristiqueText}>Charisme: {charisme}</Text>
-          <View style={styles.buttonContainer}>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => incrementCaracteristique('charisme')}
-              disabled={pointsRestants === 0 || charisme === 7}
-            >
-              <Text style={styles.buttonText}>+</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => decrementCaracteristique('charisme')}
-              disabled={charisme === 3}
-            >
-              <Text style={styles.buttonText}>-</Text>
-            </TouchableOpacity>
-          </View>
+      </View>
+      <View style={styles.caracteristiqueContainer}>
+        <Text style={styles.caracteristiqueText}>Charisme: {charisme}</Text>
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => incrementCaracteristique('charisme')}
+            disabled={pointsRestants === 0 || charisme === 7}
+          >
+            <Text style={styles.buttonText}>+</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => decrementCaracteristique('charisme')}
+            disabled={charisme === 3}
+          >
+            <Text style={styles.buttonText}>-</Text>
+          </TouchableOpacity>
         </View>
-        <View style={styles.caracteristiqueContainer}>
-          <Text style={styles.caracteristiqueText}>Endurance: {endurance}</Text>
-          <View style={styles.buttonContainer}>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => incrementCaracteristique('endurance')}
-              disabled={pointsRestants === 0 || endurance === 7}
-            >
-              <Text style={styles.buttonText}>+</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => decrementCaracteristique('endurance')}
-              disabled={endurance === 3}
-            >
-              <Text style={styles.buttonText}>-</Text>
-            </TouchableOpacity>
-          </View>
+      </View>
+      <View style={styles.caracteristiqueContainer}>
+        <Text style={styles.caracteristiqueText}>Endurance: {endurance}</Text>
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => incrementCaracteristique('endurance')}
+            disabled={pointsRestants === 0 || endurance === 7}
+          >
+            <Text style={styles.buttonText}>+</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => decrementCaracteristique('endurance')}
+            disabled={endurance === 3}
+          >
+            <Text style={styles.buttonText}>-</Text>
+          </TouchableOpacity>
         </View>
-        <View style={styles.caracteristiqueContainer}>
-          <Text style={styles.caracteristiqueText}>Santé: {sante}</Text>
-          <View style={styles.buttonContainer}>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => incrementCaracteristique('sante')}
-              disabled={pointsRestants === 0 || sante === 7}
-            >
-              <Text style={styles.buttonText}>+</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => decrementCaracteristique('sante')}
-              disabled={sante === 3}
-            >
-              <Text style={styles.buttonText}>-</Text>
-            </TouchableOpacity>
-          </View>
+      </View>
+      <View style={styles.caracteristiqueContainer}>
+        <Text style={styles.caracteristiqueText}>Santé: {sante}</Text>
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => incrementCaracteristique('sante')}
+            disabled={pointsRestants === 0 || sante === 7}
+          >
+            <Text style={styles.buttonText}>+</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => decrementCaracteristique('sante')}
+            disabled={sante === 3}
+          >
+            <Text style={styles.buttonText}>-</Text>
+          </TouchableOpacity>
         </View>
       </View>
       <TouchableOpacity style={styles.saveButton} onPress={handleSaveCaracteristiques}>
@@ -162,55 +162,54 @@ const Caracteristiques = ({ onUpdateCaracteristiques }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#000000',
-    padding: 20,
+    justifyContent: 'space-around',
+    paddingHorizontal: 20,
+    paddingVertical: 40,
+    backgroundColor: 'rgba(0, 0, 0, 0.8)'
   },
   textContainer: {
-    flex: 1,
-    marginBottom: 40,
+    alignItems: 'center',
+    marginBottom: 20,
   },
   pointsRestantsText: {
     fontSize: 18,
     fontWeight: 'bold',
     color: '#FFFFFF',
-    marginBottom: 20,
   },
   caracteristiqueContainer: {
     marginBottom: 20,
   },
   caracteristiqueText: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: 'bold',
     color: '#FFFFFF',
-    marginBottom: 10,
   },
   buttonContainer: {
     flexDirection: 'row',
-    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 10,
   },
   button: {
-    backgroundColor: '#FF0000',
+    backgroundColor: '#FFFFFF',
+    borderRadius: 20,
     padding: 10,
     marginHorizontal: 5,
   },
   buttonText: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#FFFFFF',
+    color: '#000000',
   },
   saveButton: {
-    position: 'absolute',
-    bottom: 20,
-    left: 20,
-    right: 20,
-    backgroundColor: '#FF0000',
+    backgroundColor: '#FFFFFF',
+    borderRadius: 20,
     padding: 10,
     alignItems: 'center',
   },
   saveButtonText: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#FFFFFF',
+    color: '#000000',
   },
 });
 
