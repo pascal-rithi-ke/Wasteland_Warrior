@@ -10,6 +10,18 @@ npm-debug.*
 *.orig.*
 web-build/
 
+# python cache
+__pycache__/
+
+# vscode
+.vscode/
+
+# .env
+.env
+
+# sampleData
+#sampleData/
+
 # macOS
 .DS_Store
 

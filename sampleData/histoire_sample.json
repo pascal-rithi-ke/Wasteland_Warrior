@@ -1,0 +1,179 @@
+{
+    "title": "Post-Apocalyptic Adventure",
+    "niveau": "Chapitre 1",
+    "scenes": [
+        {
+            "id": "start_1",
+            "text": "Votre héros sort de son abri antiatomique à la suite d'une guerre nucléaire en 2077. Votre mission sera d'aller chercher de la nourriture dans le dernier centre commercial de votre ville et de la ramener à votre abri.",
+            "image": "start_1.jpg",
+            "choices": [
+                {
+                    "text": "En route vers l'inconnu",
+                    "next_scene": "choice_1"
+                }
+            ]
+        },
+        {
+            "id": "choice_1",
+            "text": "Vous sortez de votre abri. Que faites-vous ?",
+            "image": "choice_1.jpg",
+            "choices": [
+                {
+                    "text": "Vous prenez votre pioche avec vous, on ne sait jamais...",
+                    "modifiers": {
+                        "endurance": -1
+                    },
+                    "next_scene": "choice_2"
+                },
+                {
+                    "text": "Vous aimez voyager léger !",
+                    "next_scene": "choice_2"
+                }
+            ]
+        },
+        {
+            "id": "choice_2",
+            "text": "Sur votre périple, vous tombez sur la station-service d'avant-guerre. Un bruit sourd apparaît. Que faites-vous ?",
+            "image": "choice_2.jpg",
+            "choices": [
+                {
+                    "text": "Y aller",
+                    "next_scene": "choice_3"
+                },
+                {
+                    "text": "Ne pas y aller",
+                    "next_scene": "choice_3"
+                }
+            ]
+        },
+        {
+            "id": "choice_3",
+            "text": "Vous croisez un chien, oreilles dressées vers l'arrière. Que faites-vous ?",
+            "image": "choice_3.jpg",
+            "choices": [
+                {
+                    "text": "L'attaquer avec la pioche",
+                    "modifiers": {
+                        "health": -3
+                    },
+                    "next_scene": "choice_4"
+                },
+                {
+                    "text": "Lui lancer votre seul paquet de boeuf séché (nécessite 4 de charisme)",
+                    "requirements": {
+                        "charisma": 4
+                    },
+                    "next_scene": "choice_4_companion",
+                    "modifiers": {
+                        "endurance": -2
+                    }
+                }
+            ]
+        },
+        {
+            "id": "choice_4_companion",
+            "text": "Félicitations, vous avez gagné un compagnon !",
+            "image": "choice_4_companion.jpg",
+            "choices": [
+                {
+                    "text": "Continuer",
+                    "next_scene": "choice_4"
+                }
+            ]
+        },
+        {
+            "id": "choice_4",
+            "text": "Vous traversez le centre-ville et apercevez deux personnes non recommandables. Vous essayez de vous cacher, mais en vain. Vous êtes repéré et vous vous retrouvez face à eux.",
+            "image": "choice_4.jpg",
+            "choices": [
+                {
+                    "text": "Les attaquer",
+                    "modifiers": {
+                        "health": -3
+                    },
+                    "next_scene": "end_game_death"
+                },
+                {
+                    "text": "Tenter de les raisonner (nécessite 5 de charisme)",
+                    "requirements": {
+                        "charisma": 5
+                    },
+                    "next_scene": "end_game_success"
+                },
+                {
+                    "text": "Attaquer avec votre compagnon à quatre pattes",
+                    "modifiers": {
+                        "force": 2
+                    },
+                    "next_scene": "choice_5"
+                }
+            ]
+        },
+        {
+            "id": "end_game_death",
+            "text": "L'un des bandits vous a poignardé. Vous voyez la lumière au bout du tunnel... GAME OVER!",
+            "image": "end_game_death.jpg",
+            "choices": []
+        },
+        {
+            "id": "end_game_success",
+            "text": "Félicitations, vous avez réussi à vous en sortir sain et sauf !",
+            "image": "end_game_success.jpg",
+            "choices": []
+        },
+        {
+            "id": "choice_5",
+            "text": "Vous arrivez sur le parking du centre commercial et croisez une charmante femme en détresse avec la cheville cassée dans la cage d'escalier. Que faites-vous ?",
+            "image": "choice_5.jpg",
+            "choices": [
+                {
+                    "text": "L'aider",
+                    "modifiers": {
+                        "health": -3
+                    },
+                    "next_scene": "end_game_trap"
+                },
+                {
+                    "text": "Prétexter lui rapporter une attelle du centre commercial",
+                    "next_scene": "choice_6"
+                }
+            ]
+        },
+        {
+            "id": "end_game_trap",
+            "text": "C'était un piège ! Elle n'a rien de cassé et elle est accompagnée de son ami. Ils vous dépouillent de tout et tuent votre chien ! GAME OVER!",
+            "image": "end_game_trap.jpg",
+            "choices": []
+        },
+        {
+            "id": "choice_6",
+            "text": "Vous voilà dans le dernier centre commercial. Votre mission touche à sa fin. Sur le chemin, vous tombez sur votre magasin de foot préféré. Il leur reste un ballon et une cage. Tenter un penalty ?",
+            "image": "choice_6.jpg",
+            "choices": [
+                {
+                    "text": "Tenter",
+                    "modifiers": {
+                        "endurance": -3
+                    },
+                    "next_scene": "end_game_penalty"
+                },
+                {
+                    "text": "Rester concentré sur les ressources",
+                    "next_scene": "end_game_success"
+                }
+            ]
+        },
+        {
+            "id": "end_game_penalty",
+            "text": "Visiblement, ça fait une éternité que vous n'avez pas joué au foot. En tirant, vous vous cassez la cheville... GAME OVER!",
+            "image": "end_game_penalty.jpg",
+            "choices": []
+        },
+        {
+            "id": "end_game_success",
+            "text": "Félicitations, vos courses sont faites pour un bon moment. Il est temps de rentrer maintenant !",
+            "image": "end_game_success.jpg",
+            "choices": []
+        }
+    ]
+}

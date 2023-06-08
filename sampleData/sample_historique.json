@@ -1,0 +1,36 @@
+[
+    {
+        "user_id": "12345",
+        "game_id": "game_1",
+        "scenes_id": "1",
+        "status": "ongoing",
+        "start_date": "2023-06-08 10:00:00",
+        "end_date": null,
+        "score": null,
+        "characteristics": {
+            "strength": 5,
+            "intelligence": 4,
+            "charisma": 6,
+            "endurance": 5,
+            "health": 7
+        },
+        "sex": "male"
+    },
+    {
+        "user_id": "12345",
+        "game_id": "game_2",
+        "scenes_id": "2",
+        "status": "finished",
+        "start_date": "2023-06-05 14:30:00",
+        "end_date": "2023-06-05 16:45:00",
+        "score": 80,
+        "characteristics": {
+            "strength": 6,
+            "intelligence": 5,
+            "charisma": 7,
+            "endurance": 6,
+            "health": 8
+        },
+        "sex": "female"
+    }
+]
