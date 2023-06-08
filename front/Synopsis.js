@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     borderWidth: 3,
   },
   buttonText: {
-    fontSize: 16,
+    fontSize: 20,
     fontWeight: 'bold',
     color: '#FFF',
     fontFamily: 'monospace',
