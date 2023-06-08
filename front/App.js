@@ -38,8 +38,8 @@ export default function App() {
         <Stack.Screen name="ContinueGame" component={ContinueGame} options={{headerShown:false}} />
 
         <Stack.Screen name="Add_Histoire" component={Add_Histoire} options={{headerShown:false}} />
-        <Stack.Screen name="GetAllHistoire" component={GetAllHistoire} options={{headerShown:false}} />
-        <Stack.Screen name="GetHistoire" component={GetHistoire} options={{headerShown:false}} />
+        <Stack.Screen name="GetAllHistoire" component={GetAllHistoire} />
+        <Stack.Screen name="GetHistoire" component={GetHistoire}/>
 
         {/* -- Ecran non affichable via bouton -- */}
         <Stack.Screen name="GameOver" component={GameOver} options={{headerShown:false}} />
