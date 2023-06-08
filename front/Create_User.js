@@ -1,17 +1,27 @@
 import React, { useState } from 'react';
 import { View, TextInput, TouchableOpacity, Text, StyleSheet } from 'react-native';
+import axios from 'axios';
+
+
 
 const SignupForm = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSignup = () => {
-    // Votre logique de traitement de l'inscription ici
-    // Vous pouvez envoyer les données à votre serveur, effectuer des vérifications, etc.
-    console.log('Inscription effectuée avec succès !');
+  const handleSignup = async () => {
+    try {
+      const response = await axios.post("https://5467-130-180-217-66.ngrok-free.app/InsertUser", {
+        username,
+        email,
+        password,
+      });
+      console.log(response.data); // Affiche la réponse du serveur
+      console.log('Inscription effectuée avec succès !');
+    } catch (error) {
+      console.error(error);
+    }
   };
-
   return (
     <View style={styles.container}>
       <TextInput
