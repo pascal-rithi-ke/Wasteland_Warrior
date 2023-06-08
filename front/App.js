@@ -9,6 +9,10 @@ import Choix_Hero from './Choix_Hero';
 import Caracteristiques from './Caracteristiques';
 import Create_User from './Create_User';
 
+import Add_Histoire from './screens/Histoire/Form_Histoire/Add_Histoire';
+import GetAllHistoire from './screens/Histoire/GetAllHistoire';
+import GetHistoire from './screens/Histoire/GetHistoire';
+
 import GameOver from './screens/inGame/GameOver';
 
 import Regles from './screens/Regles';
@@ -29,6 +33,9 @@ export default function App() {
         <Stack.Screen name="Create_User" component={Create_User} options={{headerShown:false}} />
         <Stack.Screen name="ContinueGame" component={ContinueGame} options={{headerShown:false}} />
 
+        <Stack.Screen name="Add_Histoire" component={Add_Histoire} options={{headerShown:false}} />
+        <Stack.Screen name="GetAllHistoire" component={GetAllHistoire} options={{headerShown:false}} />
+        <Stack.Screen name="GetHistoire" component={GetHistoire} options={{headerShown:false}} />
 
         {/* -- Ecran non affichable via bouton -- */}
         <Stack.Screen name="GameOver" component={GameOver} options={{headerShown:false}} />
