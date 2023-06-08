@@ -10,10 +10,10 @@ import Caracteristiques from './Caracteristiques'
 
 import GameOver from './screens/inGame/GameOver';
 
-import Regle from './screens/Regle';
+import Regles from './screens/Regles';
 
 const Stack = createNativeStackNavigator();
- 
+
 
 export default function App() {
   return (
@@ -32,7 +32,7 @@ export default function App() {
         <Stack.Screen name="GameOver" component={GameOver} options={{headerShown:false}} />
         {/* ------------------------------------- */}
 
-        <Stack.Screen name="Regle" component={Regle} />
+        <Stack.Screen name="Regles" component={Regles} />
       </Stack.Navigator>
     </NavigationContainer>
   );
