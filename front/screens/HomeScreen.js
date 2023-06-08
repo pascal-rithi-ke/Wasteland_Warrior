@@ -12,7 +12,6 @@ function HomeScreen() {
       <Text style={styles.btnStart} onPress={() => navigation.navigate('ContinueGame')}>Reprendre la partie</Text>
       <Text style={styles.btnStart} onPress={() => navigation.navigate('Regles')}>Règles</Text>
       <Text style={styles.btnStart} onPress={() => navigation.navigate('Create_User')}>S'inscrire</Text>
-      <Text style={styles.btnStart} onPress={() => navigation.navigate('GameOver')}>Game Over</Text>
     </View>
   );
 }

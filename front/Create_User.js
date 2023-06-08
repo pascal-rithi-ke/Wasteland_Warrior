@@ -1,27 +1,45 @@
 import React, { useState } from 'react';
 import { View, TextInput, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import axios from 'axios';
-
-
+import { useNavigation } from '@react-navigation/native';
 
 const SignupForm = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const [erreur, setErreur] = useState('');
+
+  const navigation = useNavigation();
+
   const handleSignup = async () => {
     try {
-      const response = await axios.post("https://5467-130-180-217-66.ngrok-free.app/InsertUser", {
-        username,
-        email,
-        password,
-      });
-      console.log(response.data); // Affiche la réponse du serveur
-      console.log('Inscription effectuée avec succès !');
+      if(username == '' || email == '' || password == ''){
+        setErreur('Veuillez remplir tous les champs !');
+        return;
+      }
+      else if(password.length < 8){
+        setErreur('Le mot de passe doit contenir au moins 8 caractères !');
+        return;
+      }
+      else if(!email.includes('@')){
+        setErreur('Veuillez entrer une adresse email valide !');
+        return;
+      }
+      else{
+        const response = await axios.post('https://5467-130-180-217-66.ngrok-free.app/InsertUser', {
+          username,
+          email,
+          password,
+          statut: 'user'
+        });
+        navigation.navigate('Home');
+      }
     } catch (error) {
-      console.error(error);
+      setErreur(error.message);
     }
   };
+
   return (
     <View style={styles.container}>
       <TextInput
@@ -47,6 +65,7 @@ const SignupForm = () => {
       <TouchableOpacity style={styles.button} onPress={handleSignup}>
         <Text style={styles.buttonText}>S'inscrire</Text>
       </TouchableOpacity>
+      {erreur ? <Text style={{ color: 'red' }}>{erreur}</Text> : null}
     </View>
   );
 };
