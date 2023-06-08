@@ -77,10 +77,11 @@ const Caracteristiques = ({ onUpdateCaracteristiques }) => {
   return (
     <View style={styles.container}>
       <View style={styles.textContainer}>
-        <Text style={styles.pointsRestantsText}>Points restants: {pointsRestants}</Text>
+        <Text style={styles.h1}>CHOISISSEZ VOS STATISTIQUES</Text>
+        <Text style={styles.pointsRestantsText}>Points restants : {pointsRestants}</Text>
       </View>
       <View style={styles.caracteristiqueContainer}>
-        <Text style={styles.caracteristiqueText}>Force: {force}</Text>
+        <Text style={styles.caracteristiqueText}>FORCE : {force}</Text>
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             style={styles.button}
@@ -99,7 +100,7 @@ const Caracteristiques = ({ onUpdateCaracteristiques }) => {
         </View>
       </View>
       <View style={styles.caracteristiqueContainer}>
-        <Text style={styles.caracteristiqueText}>Charisme: {charisme}</Text>
+        <Text style={styles.caracteristiqueText}>CHARISME : {charisme}</Text>
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             style={styles.button}
@@ -118,7 +119,7 @@ const Caracteristiques = ({ onUpdateCaracteristiques }) => {
         </View>
       </View>
       <View style={styles.caracteristiqueContainer}>
-        <Text style={styles.caracteristiqueText}>Endurance: {endurance}</Text>
+        <Text style={styles.caracteristiqueText}>ENDURANCE : {endurance}</Text>
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             style={styles.button}
@@ -137,7 +138,7 @@ const Caracteristiques = ({ onUpdateCaracteristiques }) => {
         </View>
       </View>
       <View style={styles.caracteristiqueContainer}>
-        <Text style={styles.caracteristiqueText}>Santé: {sante}</Text>
+        <Text style={styles.caracteristiqueText}>SANTÉ : {sante}</Text>
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             style={styles.button}
@@ -174,6 +175,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 20,
   },
+  h1: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#14f819',
+    marginBottom: 10,
+    fontFamily: 'monospace',
+    textAlign: 'center',
+  },
   pointsRestantsText: {
     fontSize: 18,
     fontWeight: 'bold',
@@ -199,6 +208,10 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
   },
   buttonText: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 50,
     fontSize: 18,
     fontWeight: 'bold',
     color: '#000000',
