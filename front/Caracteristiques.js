@@ -8,58 +8,61 @@ const Caracteristiques = ({ onUpdateCaracteristiques }) => {
   const [sante, setSante] = useState(3);
   const [pointsRestants, setPointsRestants] = useState(5);
 
-  const incrementCaracteristique = (caracteristique) => {
-    if (pointsRestants > 0 && caracteristique < 6) {
-      switch (caracteristique) {
-        case 'force':
-          setForce((prevForce) => Math.min(prevForce + 1, 7));
-          break;
-        case 'charisme':
-          setCharisme((prevCharisme) => Math.min(prevCharisme + 1, 7));
-          break;
-        case 'endurance':
-          setEndurance((prevEndurance) => Math.min(prevEndurance + 1, 7));
-          break;
-        case 'sante':
-          setSante((prevSante) => Math.min(prevSante + 1, 7));
-          break;
-        default:
-          break;
-      }
+  const moreForce = () => {
+    if (pointsRestants > 0 && force < 6) {
+      setForce((prevForce) => Math.min(prevForce + 1, 7));
       setPointsRestants((prevPoints) => prevPoints - 1);
     }
-  };
+  }
 
-  const decrementCaracteristique = (caracteristique) => {
-    switch (caracteristique) {
-      case 'force':
-        if (force > 3) {
-          setForce((prevForce) => prevForce - 1);
-          setPointsRestants((prevPoints) => prevPoints + 1);
-        }
-        break;
-      case 'charisme':
-        if (charisme > 3) {
-          setCharisme((prevCharisme) => prevCharisme - 1);
-          setPointsRestants((prevPoints) => prevPoints + 1);
-        }
-        break;
-      case 'endurance':
-        if (endurance > 3) {
-          setEndurance((prevEndurance) => prevEndurance - 1);
-          setPointsRestants((prevPoints) => prevPoints + 1);
-        }
-        break;
-      case 'sante':
-        if (sante > 3) {
-          setSante((prevSante) => prevSante - 1);
-          setPointsRestants((prevPoints) => prevPoints + 1);
-        }
-        break;
-      default:
-        break;
+  const moreCharisme = () => {
+    if (pointsRestants > 0 && charisme < 6) {
+      setCharisme((prevCharisme) => Math.min(prevCharisme + 1, 7));
+      setPointsRestants((prevPoints) => prevPoints - 1);
     }
-  };
+  }
+
+  const moreEndurance = () => {
+    if (pointsRestants > 0 && endurance < 6) {
+      setEndurance((prevEndurance) => Math.min(prevEndurance + 1, 7));
+      setPointsRestants((prevPoints) => prevPoints - 1);
+    }
+  }
+
+  const moreSante = () => {
+    if (pointsRestants > 0 && endurance < 6) {
+      setSante((prevSante) => Math.min(prevSante + 1, 7));
+      setPointsRestants((prevPoints) => prevPoints - 1);
+    }
+  }
+
+  const lessForce = () => {
+    if (force > 3) {
+      setForce((prevForce) => prevForce - 1);
+      setPointsRestants((prevPoints) => prevPoints + 1);
+    }
+  }
+
+  const lessCharisme = () => {
+    if (charisme > 3) {
+      setCharisme((prevCharisme) => prevCharisme - 1);
+      setPointsRestants((prevPoints) => prevPoints + 1);
+    }
+  }
+
+  const lessEndurance = () => {
+    if (endurance > 3) {
+      setEndurance((prevEndurance) => prevEndurance - 1);
+      setPointsRestants((prevPoints) => prevPoints + 1);
+    }
+  }
+
+  const lessSante = () => {
+    if (sante > 3) {
+      setSante((prevSante) => prevSante - 1);
+      setPointsRestants((prevPoints) => prevPoints + 1);
+    }
+  }
 
   const handleSaveCaracteristiques = () => {
     const caracteristiques = {
@@ -81,14 +84,14 @@ const Caracteristiques = ({ onUpdateCaracteristiques }) => {
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             style={styles.button}
-            onPress={() => incrementCaracteristique('force')}
+            onPress={moreForce}
             disabled={pointsRestants === 0 || force === 7}
           >
             <Text style={styles.buttonText}>+</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.button}
-            onPress={() => decrementCaracteristique('force')}
+            onPress={lessForce}
             disabled={force === 3}
           >
             <Text style={styles.buttonText}>-</Text>
@@ -100,14 +103,14 @@ const Caracteristiques = ({ onUpdateCaracteristiques }) => {
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             style={styles.button}
-            onPress={() => incrementCaracteristique('charisme')}
+            onPress={moreCharisme}
             disabled={pointsRestants === 0 || charisme === 7}
           >
             <Text style={styles.buttonText}>+</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.button}
-            onPress={() => decrementCaracteristique('charisme')}
+            onPress={lessCharisme}
             disabled={charisme === 3}
           >
             <Text style={styles.buttonText}>-</Text>
@@ -119,14 +122,14 @@ const Caracteristiques = ({ onUpdateCaracteristiques }) => {
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             style={styles.button}
-            onPress={() => incrementCaracteristique('endurance')}
+            onPress={moreEndurance}
             disabled={pointsRestants === 0 || endurance === 7}
           >
             <Text style={styles.buttonText}>+</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.button}
-            onPress={() => decrementCaracteristique('endurance')}
+            onPress={lessEndurance}
             disabled={endurance === 3}
           >
             <Text style={styles.buttonText}>-</Text>
@@ -138,14 +141,14 @@ const Caracteristiques = ({ onUpdateCaracteristiques }) => {
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             style={styles.button}
-            onPress={() => incrementCaracteristique('sante')}
+            onPress={moreSante}
             disabled={pointsRestants === 0 || sante === 7}
           >
             <Text style={styles.buttonText}>+</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.button}
-            onPress={() => decrementCaracteristique('sante')}
+            onPress={lessSante}
             disabled={sante === 3}
           >
             <Text style={styles.buttonText}>-</Text>
