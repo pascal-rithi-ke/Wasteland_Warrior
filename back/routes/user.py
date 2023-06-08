@@ -2,7 +2,6 @@ from flask import Blueprint, request, jsonify
 from bson import json_util
 from bson.objectid import ObjectId
 from service.mongo import get_mongo_collection_user
-import bcrypt
 
 user_bp = Blueprint('user_bp', __name__)
 
