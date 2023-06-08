@@ -1,53 +1,36 @@
 import React, { useState } from 'react';
-import { View, TextInput, TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { View, TextInput, TouchableOpacity, Text, StyleSheet, Alert } from 'react-native';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
 
-const SignupForm = () => {
-  const [username, setUsername] = useState('');
+const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const [erreur, setErreur] = useState('');
-
   const navigation = useNavigation();
 
-  const handleSignup = async () => {
+  const handleLogin = async () => {
     try {
-      if(username == '' || email == '' || password == ''){
-        setErreur('Veuillez remplir tous les champs !');
-        return;
-      }
-      else if(password.length < 8){
-        setErreur('Le mot de passe doit contenir au moins 8 caractères !');
-        return;
-      }
-      else if(!email.includes('@')){
-        setErreur('Veuillez entrer une adresse email valide !');
-        return;
-      }
-      else{
-        const response = await axios.post('https://5467-130-180-217-66.ngrok-free.app/InsertUser', {
-          username,
-          email,
-          password,
-          statut: 'user'
-        });
-        navigation.navigate('Home');
-      }
+      const response = await axios.post('https://5467-130-180-217-66.ngrok-free.app/Login', {
+        email,
+        password,
+      });
+      console.log(response.data);
+      console.log('Connexion réussie !');
+
+      // Effectuer les actions souhaitées après la connexion réussie
+
+      // Exemple : Naviguer vers l'écran Home
+      navigation.navigate('Home');
     } catch (error) {
-      setErreur(error.message);
+      console.error(error);
+
+      Alert.alert('Erreur', 'Identifiants invalides. Veuillez réessayer.');
     }
   };
 
   return (
     <View style={styles.container}>
-      <TextInput
-        style={styles.input}
-        placeholder="Nom d'utilisateur"
-        value={username}
-        onChangeText={setUsername}
-      />
       <TextInput
         style={styles.input}
         placeholder="Email"
@@ -62,10 +45,9 @@ const SignupForm = () => {
         onChangeText={setPassword}
         secureTextEntry
       />
-      <TouchableOpacity style={styles.button} onPress={handleSignup}>
-        <Text style={styles.buttonText}>S'inscrire</Text>
+      <TouchableOpacity style={styles.button} onPress={handleLogin}>
+        <Text style={styles.buttonText}>Se connecter</Text>
       </TouchableOpacity>
-      {erreur ? <Text style={{ color: 'red' }}>{erreur}</Text> : null}
     </View>
   );
 };
@@ -95,4 +77,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SignupForm;
+export default LoginForm;

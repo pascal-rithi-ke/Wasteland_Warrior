@@ -2,6 +2,7 @@ from flask import Blueprint, request, jsonify
 from bson import json_util
 from bson.objectid import ObjectId
 from service.mongo import get_mongo_collection_user
+import bcrypt
 
 user_bp = Blueprint('user_bp', __name__)
 
@@ -54,6 +55,13 @@ def DeleteUserById(id):
 def InsertUser():
     user_data = request.json  # Récupérer les données de l'utilisateur à partir de la requête JSON
 
+    # Crypter le mot de passe
+    password = user_data.get('password')
+    hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt(10))
+
+    # Mettre à jour les données de l'utilisateur avec le mot de passe crypté
+    user_data['password'] = hashed_password.decode('utf-8')
+
     mycol = get_mongo_collection_user()
     result = mycol.insert_one(user_data)  # Insérer les données de l'utilisateur dans la collection
 
@@ -74,6 +82,34 @@ def UpdateUserById(id):
     if result:
         data['_id'] = id
     response = jsonify({'results': data})
+    response.headers.add("Access-Control-Allow-Origin", "*")
+    return response
+
+
+
+
+
+@user_bp.route("/Login", methods=['POST'])
+def Login():
+    user_data = request.json  # Récupérer les données de l'utilisateur à partir de la requête JSON
+
+    username = user_data.get('username')
+    password = user_data.get('password')
+
+    mycol = get_mongo_collection_user()
+    user = mycol.find_one({"username": username})  # Rechercher l'utilisateur dans la collection
+
+    if user:
+        # Vérifier si le mot de passe correspond au mot de passe crypté dans la base de données
+        if bcrypt.checkpw(password.encode('utf-8'), user['password'].encode('utf-8')):
+            # Connexion réussie
+            user['_id'] = str(user['_id'])  # Convertir l'ObjectId en une chaîne de caractères
+            response = jsonify({'results': user})
+            response.headers.add("Access-Control-Allow-Origin", "*")
+            return response
+
+    # Identifiants invalides ou utilisateur non trouvé
+    response = jsonify({'results': None})
     response.headers.add("Access-Control-Allow-Origin", "*")
     return response
 

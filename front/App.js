@@ -8,6 +8,8 @@ import Synopsis from './Synopsis';
 import Choix_Hero from './Choix_Hero';
 import Caracteristiques from './Caracteristiques';
 import Create_User from './Create_User';
+import Login from './Login';
+import Delete_User from './Delete_User';
 
 import Add_Histoire from './screens/Histoire/Form_Histoire/Add_Histoire';
 import GetAllHistoire from './screens/Histoire/GetAllHistoire';
@@ -31,6 +33,8 @@ export default function App() {
         <Stack.Screen name="Choix_Hero" component={Choix_Hero} options={{headerShown:false}} />
         <Stack.Screen name="Caracteristiques" component={Caracteristiques} options={{headerShown:false}} />
         <Stack.Screen name="Create_User" component={Create_User} options={{headerShown:false}} />
+        <Stack.Screen name="Delete_User" component={Delete_User} options={{headerShown:false}} />
+        <Stack.Screen name="Login" component={Login} options={{headerShown:false}} />
         <Stack.Screen name="ContinueGame" component={ContinueGame} options={{headerShown:false}} />
 
         <Stack.Screen name="Add_Histoire" component={Add_Histoire} options={{headerShown:false}} />
