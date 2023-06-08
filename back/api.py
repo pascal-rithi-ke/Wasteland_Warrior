@@ -10,7 +10,7 @@ CORS(app)
 # Vérification du fonctionnement de l'API
 @app.route("/")
 def statut():
-    if app.debug:
+    if app.debug == True:
         return "<p>API is running</p>"
     else:
         return "<p>API is not running</p>"
@@ -22,4 +22,4 @@ app.register_blueprint(user_bp)
 app.register_blueprint(hist_bp)
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=80)
+    app.run(host='0.0.0.0', port=80 , debug=True)
