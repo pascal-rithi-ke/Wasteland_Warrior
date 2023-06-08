@@ -45,7 +45,7 @@ function Regles() {
 const styles = StyleSheet.create({
     container: {
         alignItems: 'center',
-        backgroundColor: '#fff',
+        backgroundColor: 'rgba(0, 0, 0, 0.8)',
         flex: 1,
         justifyContent: 'center',
     },
@@ -53,11 +53,7 @@ const styles = StyleSheet.create({
         fontSize: 30,
         fontWeight: 'bold',
         marginBottom: 20,
-    },
-    text: {
-        fontSize: 20,
-        marginBottom: 20,
-        textAlign: 'center',
+        color: 'white',
     },
     regleContainer: {
         width: '85%',
@@ -65,12 +61,14 @@ const styles = StyleSheet.create({
     regle: {
         fontSize: 20,
         marginBottom: 20,
+        color: 'white',
         textAlign: 'justify',
     },
     regle_explication: {
         fontSize: 20,
         marginBottom: 20,
         textAlign: 'justify',
+        color: 'white',
         marginLeft: 10,
     }
 });

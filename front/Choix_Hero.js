@@ -2,9 +2,6 @@ import React from 'react';
 import { View, Image, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-const avatar_homme = require('./avatar_homme.png');
-const avatar_femme = require('./avatar_femme.png');
-
 const Choix_Hero = () => {
   const navigation = useNavigation();
 
@@ -16,13 +13,13 @@ const Choix_Hero = () => {
     <View style={styles.container}>
       <TouchableOpacity onPress={() => selectHero('homme')}>
         <View style={styles.heroContainer}>
-          <Image source={require('./avatar_homme.png')} style={styles.heroImage} />
+          <Image source={require('./assets/game/avatar_homme.png')} style={styles.heroImage} />
           <Text style={styles.heroText}>Homme</Text>
         </View>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => selectHero('femme')}>
         <View style={styles.heroContainer}>
-          <Image source={require('./avatar_femme.png')} style={styles.heroImage} />
+          <Image source={require('./assets/game/avatar_femme.png')} style={styles.heroImage} />
           <Text style={styles.heroText}>Femme</Text>
         </View>
       </TouchableOpacity>

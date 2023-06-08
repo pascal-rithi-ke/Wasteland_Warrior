@@ -1,17 +1,14 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+
 
 function HomeScreen() {
   const navigation = useNavigation();
 
-  const redirectToSynopsis = () => {
-    navigation.navigate('Synopsis');
-  };
-
   return (
     <View style={styles.containerStart}>
-      <Text style={styles.btnStart} onPress={redirectToSynopsis}>Jouer</Text>
+      <Text style={styles.btnStart} onPress={() => navigation.navigate('Synopsis')}>Joueur</Text>
       <Text style={styles.btnStart} onPress={() => navigation.navigate('ContinueGame')}>Reprendre la partie</Text>
       <Text style={styles.btnStart} onPress={() => navigation.navigate('Regles')}>Règles</Text>
       <Text style={styles.btnStart} onPress={() => navigation.navigate('Create_User')}>S'inscrire</Text>
