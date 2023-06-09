@@ -2,11 +2,15 @@ import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-const Fourth_Choice = ({ handleChoice2 }) => {
+const Fourth_Choice = () => {
   const navigation = useNavigation();
 
   const handleChoice1 = () => {
     navigation.navigate('Fight');
+  }
+
+  const handleChoice2 = () => {
+    navigation.navigate('Reason');
   }
 
   const handleChoice3 = () => {
