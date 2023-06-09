@@ -3,10 +3,12 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 const Fifth_Choice = ({ handleChoice1, handleChoice2 }) => {
+
   const navigation = useNavigation();
 
   const handleChoice1Press = () => {
     // Logic for choice 1
+    navigation.navigate('HelpWoman');
   };
 
   const handleChoice2Press = () => {
@@ -24,8 +26,6 @@ const Fifth_Choice = ({ handleChoice1, handleChoice2 }) => {
       <TouchableOpacity style={styles.choiceCard} onPress={handleChoice1Press}>
         <Text style={styles.choiceOption}>
           1: L'aider
-          C'était un piège ! Elle n'a rien de cassé et elle est accompagnée de son ami, vous prenant tout sur votre passage et tuant votre chien !
-          -3 points de santé
         </Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.choiceCard} onPress={handleChoice2Press}>

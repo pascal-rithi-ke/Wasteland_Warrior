@@ -32,6 +32,7 @@ import Epilogue_Win from './screens/inGame/Epilogue_Win';
 import Epilogue_Death from './screens/inGame/Epilogue_Death';
 import Fight from './screens/inGame/Fight';
 import Reason from './screens/inGame/Reason';
+import HelpWoman from './screens/inGame/HelpWoman';
 
 import GameOver from './screens/inGame/GameOver';
 
@@ -71,6 +72,7 @@ export default function App() {
         <Stack.Screen name="Epilogue_Death" component={Epilogue_Death} options={{headerShown:false}} />
         <Stack.Screen name="Fight" component={Fight} options={{headerShown:false}} />
         <Stack.Screen name="Reason" component={Reason} options={{headerShown:false}} />
+        <Stack.Screen name="HelpWoman" component={HelpWoman} options={{headerShown:false}} />
         
         <Stack.Screen name="Ajouter histoire" component={Add_Histoire}/>
         <Stack.Screen name="Modifier l'histoire" component={Update_Histoire}/>
