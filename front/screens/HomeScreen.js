@@ -15,11 +15,17 @@ function HomeScreen({ route }) {
       <ImageBackground source={require('../assets/fond.png')} resizeMode="cover" style={styles.background}>
         <Text style={styles.title}>Wasteland Warrior</Text>
 
+        <TouchableOpacity style={styles.btnStart} onPress={() => navigation.navigate('Synopsis')}>
+          <Text style={styles.text}>Jouer</Text>
+        </TouchableOpacity>
+
+        {/* à remettre quand tout est bon
         {email && username && (
           <TouchableOpacity style={styles.btnStart} onPress={() => navigation.navigate('Synopsis')}>
             <Text style={styles.text}>Jouer</Text>
           </TouchableOpacity>
         )}
+        */}
 
         {email && username && (
           <TouchableOpacity style={styles.btnStart} onPress={() => navigation.navigate('ContinueGame')}>
