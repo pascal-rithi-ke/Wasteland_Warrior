@@ -88,38 +88,47 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         paddingHorizontal: 20,
-        backgroundColor: '#fff',
+        backgroundColor: 'rgba(0, 0, 0, 0.8)'
     },
     title: {
         fontSize: 30,
         fontWeight: 'bold',
         textAlign: 'center',
         marginBottom: 20,
+        color: '#14f819',
     },
     input: {
         height: 40,
-        borderWidth: 1,
-        borderColor: '#ccc',
+        borderWidth: 3,
+        backgroundColor: 'rgba(14, 130, 16, 0.2)',
+        borderRadius: 30,
+        borderColor: '#14f819',
         marginBottom: 10,
         paddingHorizontal: 10,
+        color: '#fff'
     },
     button: {
-        backgroundColor: 'blue',
         padding: 10,
         alignItems: 'center',
+        borderWidth: 3,
+        backgroundColor: '#0e8210',
+        borderRadius: 30,
+        borderColor: '#14f819',
     },
     buttonText: {
-        color: '#fff',
+        color: '#FFF',
         fontWeight: 'bold',
     },
     erreur: {
-        color: 'red',
+        color: '#F55',
         textAlign: 'center',
         marginTop: 10,
     },
     signUp: {
+        color: '#FFF',
         textAlign: 'center',
         marginTop: 10,
+        fontWeight: 'bold',
     },
 });
 
