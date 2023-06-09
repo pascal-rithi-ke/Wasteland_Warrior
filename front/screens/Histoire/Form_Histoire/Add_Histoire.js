@@ -5,35 +5,36 @@ import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 
 function Add_Histoire() {
-    const [titre, setTitre] = useState('');
-    const [texte, setTexte] = useState('');
+    const [title, setTitle] = useState('');
+    const [chapitre, setChapitre] = useState('');
     const [erreur, setErreur] = useState('');
 
     const navigation = useNavigation();
     
     const handleInsertHistoire = async () => {
+        const convertChapitre = parseInt(chapitre);
         try {
-            if(titre == '' || texte == ''){
+            if(title == '' || chapitre == ''){
                 setErreur('Veuillez remplir tous les champs !');
                 return;
             }
-            else if(titre.length < 3){
-                setErreur('Le titre doit contenir au moins 3 caractères !');
+            else if(title.length < 3){
+                setErreur('Le title doit contenir au moins 3 caractères !');
                 return;
             }
-            else if(texte.length < 10){
-                setErreur('Le texte doit contenir au moins 10 caractères !');
+            else if(convertChapitre === 0){
+                setErreur('Le chapitre ne peut pas être à zéro');
                 return;
             }
             else{
             const response = await axios.post('https://5467-130-180-217-66.ngrok-free.app/addHistoire', {
-                titre,
-                texte
+                title,
+                chapitre: convertChapitre
             });
-            setTitre('');
-            setTexte('');
+            setTitle('');
+            setChapitre('');
             setErreur('');
-            navigation.navigate('GetAllHistoire');
+            navigation.navigate('Toutes les histoires');
             }
         } catch (error) {
             setErreur(error.message);
@@ -42,26 +43,29 @@ function Add_Histoire() {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.titre}>Ajouter une histoire</Text>
-            <TextInput
-                style={styles.input}
-                placeholder="Titre"
-                value={titre}
-                onChangeText={setTitre}
-            />
-            <TextInput
-                style={styles.input}
-                placeholder="Texte"
-                value={texte}
-                onChangeText={setTexte}
-            />
-            <TouchableOpacity
-                style={styles.button}
-                onPress={handleInsertHistoire}
-            >
-                <Text style={styles.buttonText}>Ajouter</Text>
-            </TouchableOpacity>
-            <Text style={styles.erreur}>{erreur}</Text>
+            <Text style={styles.title}>Ajouter une histoire</Text>
+            <View style={styles.item}>
+                <TextInput
+                    style={styles.input}
+                    placeholder="Titre"
+                    value={title}
+                    onChangeText={setTitle}
+                />
+                <TextInput
+                    style={styles.input}
+                    placeholder="Chapitre"
+                    value={chapitre}
+                    keyboardType="numeric"
+                    onChangeText={setChapitre}
+                />
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={handleInsertHistoire}
+                >
+                    <Text style={styles.buttonText}>Ajouter</Text>
+                </TouchableOpacity>
+                <Text style={styles.erreur}>{erreur}</Text>
+            </View>
         </View>
     );
 }
@@ -69,9 +73,10 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',
-        padding: 20
+        padding: 20,
+        justifyContent: 'center'
     },
-    titre: {
+    title: {
         fontSize: 20,
         fontWeight: 'bold',
         textAlign: 'center',
@@ -106,7 +111,7 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         padding: 10
     },
-    texte: {
+    chapitre: {
         fontSize: 16,
         textAlign: 'center'
     }

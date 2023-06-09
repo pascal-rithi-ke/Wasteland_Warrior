@@ -49,11 +49,13 @@ def updateHistoireById(id):
     mycol = get_mongo_collection_histoire()
     object_id = ObjectId(id)
     result = mycol.update_one({"_id": object_id}, {"$set": data})
-    if result:
+    if result.modified_count > 0:
         data['_id'] = id
-    response = jsonify({'results': data})
-    response.headers.add("Access-Control-Allow-Origin", "*")
-    return response
+        response = jsonify({'results': data})
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        return response
+    else:
+        return jsonify({'error': 'Failed to update histoire'})
 
 @hist_bp.route("/deleteHistoireById/<id>", methods=['DELETE'])
 def deleteHistoireById(id):

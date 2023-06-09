@@ -22,7 +22,7 @@ function GetAllHistoire(){
     }, []);
     
     const redirectToHistoire = (id) => {
-        navigation.navigate('GetHistoire', {_id: id});
+        navigation.navigate('Histoire', {_id: id});
     }
 
     return(

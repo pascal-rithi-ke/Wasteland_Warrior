@@ -12,15 +12,15 @@ function HomeScreen() {
         <Text style={styles.title}>Wasteland Warrior</Text>
         <Text style={styles.btnStart} onPress={() => navigation.navigate('Synopsis')}>Jouer</Text>
         <Text style={styles.btnStart} onPress={() => navigation.navigate('ContinueGame')}>Reprendre la partie</Text>
-        <Text style={styles.btnStart} onPress={() => navigation.navigate('Regles')}>Règles</Text>
-        <Text style={styles.btnStart} onPress={() => navigation.navigate('Create_User')}>S'inscrire</Text>
-        <Text style={styles.btnStart} onPress={() => navigation.navigate('Delete_User')}>Supprimer le compte</Text>
-        <Text style={styles.btnStart} onPress={() => navigation.navigate('Login')}>Se connecter</Text>
-        <Text>-------- PASCAL --------</Text>
-        <Text style={styles.btnStart} onPress={() => navigation.navigate('Add_Histoire')}>Add_Histoire</Text>
-        <Text style={styles.btnStart} onPress={() => navigation.navigate('Update_Histoire')}>Update_Histoire</Text>
-        <Text style={styles.btnStart} onPress={() => navigation.navigate('GetAllHistoire')}>GetAllHistoire</Text>
-        <Text>------------------------</Text>
+
+        <Text style={styles.btnStart} onPress={() => navigation.navigate('Règles')}>Règles</Text>
+        
+        <Text style={styles.btnStart} onPress={() => navigation.navigate('Inscription')}>S'inscrire</Text>
+        <Text style={styles.btnStart} onPress={() => navigation.navigate('Suppression Utilisateur')}>Supprimer le compte</Text>
+        <Text style={styles.btnStart} onPress={() => navigation.navigate('Connexion')}>Se connecter</Text>
+
+        <Text style={styles.btnStart} onPress={() => navigation.navigate('Ajouter histoire')}>Ajouter Histoire</Text>
+        <Text style={styles.btnStart} onPress={() => navigation.navigate('Toutes les histoires')}>Toutes les histoires</Text>
       </ImageBackground>
     </View>
   );

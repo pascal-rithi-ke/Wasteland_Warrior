@@ -26,35 +26,44 @@ function GetHistoire({ route, navigation }) {
             "Êtes-vous sûr de vouloir supprimer cette histoire ?",
             [
                 {
-                    text: "Annuler",
-                    onPress: () => console.log("Cancel Pressed"),
-                    style: "cancel"
-                },
-                {
                     text: "Supprimer",
                     onPress: () => {
                         axios.delete(`https://5467-130-180-217-66.ngrok-free.app/deleteHistoireById/${_id}`, {
                         })
                             .then((response) => {
                                 setData(response.data.results);
-                                navigation.navigate('GetAllHistoire');
+                                navigation.navigate('Toutes les histoires');
                             })
                             .catch((error) => {
                                 setErreur(error.message);
                             });
                     },
                     style: "destructive"
+                },
+                {
+                    text: "Annuler",
+                    onPress: () => console.log("Cancel Pressed"),
+                    style: "cancel"
                 }
             ]
         );
     }
 
+    const handleUpdate = () => {
+        navigation.navigate("Modifier l'histoire", { _id: _id });
+    }
+
     return (
         <View style={styles.GetHistoire}>
             <Text style={styles.titreScreen}>{data.title}</Text>
-            <TouchableOpacity onPress={() => handleDelete()}>
-                <Text style={styles.deleteHistoire}>Supprimer l'histoire</Text>
-            </TouchableOpacity>
+            <View style={styles.optionContainer}>
+                <TouchableOpacity onPress={() => handleUpdate()}>
+                    <Text style={styles.updateHistoire}>Modifier l'histoire</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => handleDelete()}>
+                    <Text style={styles.deleteHistoire}>Supprimer l'histoire</Text>
+                </TouchableOpacity>
+            </View>
             {erreur ? <Text style={{ color: 'red' }}>{erreur}</Text> : null}
             <View>
                 <FlatList
@@ -81,7 +90,7 @@ function GetHistoire({ route, navigation }) {
 const styles = StyleSheet.create({
     GetHistoire: {
         flex: 1,
-        padding: 20,
+        padding: 50,
         marginTop: 20,
     },
     index: {
@@ -93,6 +102,16 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         textAlign: 'center',
         marginBottom: 20
+    },
+    updateHistoire: {
+        fontSize: 15,
+        backgroundColor: 'green',
+        padding: 10,
+        borderRadius: 10,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        marginBottom: 20,
+        color: 'white'
     },
     deleteHistoire: {
         fontSize: 15,
@@ -128,7 +147,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         width: "45%",
-        height: 100,
+        height: 150,
     },
     choix: {
         color: 'white',
