@@ -32,6 +32,7 @@ import Epilogue_Win from './screens/inGame/Epilogue_Win';
 import Epilogue_Death from './screens/inGame/Epilogue_Death';
 import FightDog from './screens/inGame/FightDog';
 import Fight from './screens/inGame/Fight';
+import FightWithDog from './screens/inGame/FightWithDog';
 import Reason from './screens/inGame/Reason';
 import HelpWoman from './screens/inGame/HelpWoman';
 
@@ -73,6 +74,7 @@ export default function App() {
         <Stack.Screen name="Epilogue_Death" component={Epilogue_Death} options={{headerShown:false}} />
         <Stack.Screen name="FightDog" component={FightDog} options={{headerShown:false}} />
         <Stack.Screen name="Fight" component={Fight} options={{headerShown:false}} />
+        <Stack.Screen name="FightWithDog" component={FightWithDog} options={{headerShown:false}} />
         <Stack.Screen name="Reason" component={Reason} options={{headerShown:false}} />
         <Stack.Screen name="HelpWoman" component={HelpWoman} options={{headerShown:false}} />
         
