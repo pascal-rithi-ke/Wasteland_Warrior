@@ -93,17 +93,29 @@ function HomeScreen({ route }) {
           </TouchableOpacity>
         )}
 
+        {/* à remettre quand tout est bon
         {statut === 'admin' && (
           <TouchableOpacity style={styles.btnStart} onPress={() => navigation.navigate('Ajouter histoire')}>
             <Text style={styles.text}>Ajouter Histoire</Text>
           </TouchableOpacity>
         )}
+        */}
 
+          <TouchableOpacity style={styles.btnStart} onPress={() => navigation.navigate('Ajouter histoire')}>
+            <Text style={styles.text}>Ajouter Histoire</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.btnStart} onPress={() => navigation.navigate('Toutes les histoires')}>
+            <Text style={styles.text}>Toutes les histoires</Text>
+          </TouchableOpacity>
+
+        {/* à remettre quand tout est bon
         {statut === 'admin' && (
           <TouchableOpacity style={styles.btnStart} onPress={() => navigation.navigate('Toutes les histoires')}>
             <Text style={styles.text}>Toutes les histoires</Text>
           </TouchableOpacity>
         )}
+        */}
 
         {email && <Text style={styles.text}>Email: {email}</Text>}
         {username && <Text style={styles.text}>Username: {username}</Text>}

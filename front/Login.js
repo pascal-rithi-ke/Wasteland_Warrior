@@ -13,50 +13,49 @@ const Login = () => {
 
   const handleLogin = async () => {
     try {
-      // Envoyer les données de connexion à l'API
-      const response = await axios.post('https://5467-130-180-217-66.ngrok-free.app/Login', { username, password });
-      const { success, message } = response.data;
-
-      if (success) {
-        // Connexion réussie, effectuer les actions nécessaires ici
-        // par exemple, naviguer vers la page Home ou afficher un message de connexion réussie
-      } else {
-        // Afficher le message d'erreur
-        setMessage(message);
+      const response = await axios.post('https://5467-130-180-217-66.ngrok-free.app/login', {
+        username,
+        password,
+      });
+      const user = response.data.results;
+      if (user) {
+        navigation.navigate('Home', { user });
+        setMessage('');
       }
     } catch (error) {
-      console.error(error);
-      // Afficher le message d'erreur
-      setMessage("Une erreur s'est produite lors de la connexion.");
+      setMessage(error.message);
     }
-  };
-
-  const handleRegister = () => {
-    navigation.navigate('Inscription');
-  };
+  }
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Connexion</Text>
-      {message && <Text style={styles.errorMessage}>{message}</Text>}
+      {message !== '' && (
+        <Text style={styles.erreur}>{message}</Text>
+      )}
       <TextInput
         style={styles.input}
         placeholder="Nom d'utilisateur"
+        onChangeText={(value) => setUsername(value)}
         value={username}
-        onChangeText={setUsername}
       />
       <TextInput
         style={styles.input}
         placeholder="Mot de passe"
-        secureTextEntry={true}
+        onChangeText={(value) => setPassword(value)}
         value={password}
-        onChangeText={setPassword}
+        secureTextEntry={true}
       />
-      <TouchableOpacity style={styles.button} onPress={handleLogin}>
-        <Text style={styles.login}>Se connecter</Text>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={handleLogin}
+      >
+        <Text style={styles.buttonText}>Se connecter</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={handleRegister}>
-        <Text style={styles.signUp}>S'inscrire</Text>
+      <TouchableOpacity
+        onPress={() => navigation.navigate('SignUp')}
+      >
+        <Text style={styles.signUp}>Pas encore de compte ?</Text>
       </TouchableOpacity>
     </View>
   );
