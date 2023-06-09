@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Button } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 const Caracteristiques = ({ onUpdateCaracteristiques }) => {
   const [force, setForce] = useState(3);
@@ -7,6 +8,9 @@ const Caracteristiques = ({ onUpdateCaracteristiques }) => {
   const [endurance, setEndurance] = useState(3);
   const [sante, setSante] = useState(3);
   const [pointsRestants, setPointsRestants] = useState(5);
+  const navigation = useNavigation();
+
+
 
   const moreForce = () => {
     if (pointsRestants > 0 && force < 6) {
@@ -64,6 +68,19 @@ const Caracteristiques = ({ onUpdateCaracteristiques }) => {
     }
   }
 
+  // const handleSaveCaracteristiques = () => {
+  //   const caracteristiques = {
+  //     force,
+  //     charisme,
+  //     endurance,
+  //     sante,
+  //   };
+  // }
+
+  const toStartGame = () => {
+    navigation.navigate('Start_Game');
+  }
+    
   const randomCaracteristiques = () => {
 
       let randForce = 0;
@@ -109,6 +126,12 @@ const Caracteristiques = ({ onUpdateCaracteristiques }) => {
     };
     onUpdateCaracteristiques(caracteristiques);
   };
+
+
+  //   onUpdateCaracteristiques(caracteristiques);
+  //   navigation.navigate('Start_Game');
+  
+  // };
 
   return (
     <View style={styles.container}>
@@ -195,7 +218,7 @@ const Caracteristiques = ({ onUpdateCaracteristiques }) => {
       <TouchableOpacity style={styles.randomButton} onPress={randomCaracteristiques}>
         <Text style={styles.randomButtonText}>Aléatoire</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.saveButton} onPress={handleSaveCaracteristiques}>
+      <TouchableOpacity style={styles.saveButton} onPress={toStartGame}>
         <Text style={styles.saveButtonText}>Enregistrer</Text>
       </TouchableOpacity>
     </View>
