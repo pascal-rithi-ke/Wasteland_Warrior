@@ -13,51 +13,52 @@ const Login = () => {
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post('https://5467-130-180-217-66.ngrok-free.app/login', {
-        username,
-        password,
-      });
-      const user = response.data.results;
-      if (user) {
-        navigation.navigate('Home', { user });
-        setMessage('');
+      // Envoyer les données de connexion à l'API
+      const response = await axios.post('https://5467-130-180-217-66.ngrok-free.app/Login', { username, password });
+      const { success, message } = response.data;
+
+      if (success) {
+        // Connexion réussie, effectuer les actions nécessaires ici
+        // par exemple, naviguer vers la page Home ou afficher un message de connexion réussie
+      } else {
+        // Afficher le message d'erreur
+        setMessage(message);
       }
     } catch (error) {
-      setMessage(error.message);
+      console.error(error);
+      // Afficher le message d'erreur
+      setMessage("Une erreur s'est produite lors de la connexion.");
     }
-  }
+  };
+
+  const handleRegister = () => {
+    navigation.navigate('Inscription');
+  };
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Connexion</Text>
-      {message !== '' && (
-        <Text style={styles.erreur}>{message}</Text>
-      )}
+      {message && <Text style={styles.errorMessage}>{message}</Text>}
       <TextInput
         style={styles.input}
         placeholder="Nom d'utilisateur"
         placeholderTextColor={'white'}
-        onChangeText={(value) => setUsername(value)}
         value={username}
+        onChangeText={setUsername}
       />
       <TextInput
         style={styles.input}
         placeholder="Mot de passe"
         placeholderTextColor={'white'}
-        onChangeText={(value) => setPassword(value)}
-        value={password}
         secureTextEntry={true}
+        value={password}
+        onChangeText={setPassword}
       />
-      <TouchableOpacity
-        style={styles.button}
-        onPress={handleLogin}
-      >
-        <Text style={styles.buttonText}>Se connecter</Text>
+      <TouchableOpacity style={styles.button} onPress={handleLogin}>
+        <Text style={styles.login}>Se connecter</Text>
       </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => navigation.navigate('Inscription')}
-      >
-        <Text style={styles.signUp}>Pas encore de compte ?</Text>
+      <TouchableOpacity onPress={handleRegister}>
+        <Text style={styles.signUp}>S'inscrire</Text>
       </TouchableOpacity>
     </View>
   );
@@ -86,7 +87,7 @@ const styles = StyleSheet.create({
     borderColor: '#14f819',
     marginBottom: 10,
     paddingHorizontal: 10,
-    color: '#fff'
+    color: '#fff',
   },
   button: {
     padding: 10,
