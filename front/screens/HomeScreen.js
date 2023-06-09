@@ -101,20 +101,16 @@ function HomeScreen({ route }) {
         )}
         */}
 
+          {/* à supprimer quand le style est fait*/}
           <Text style={styles.title}>Page à styliser</Text>
+          {/* à supprimer quand le style est fait*/
+          }
           <TouchableOpacity style={styles.btnStart} onPress={() => navigation.navigate('Ajouter histoire')}>
             <Text style={styles.text}>Ajouter Histoire</Text>
           </TouchableOpacity>
 
+          <Text style={styles.styleTempo_a_delete}>Page update & une Histoire à stylisé quand on clique sur une Histoire</Text>
           <TouchableOpacity style={styles.btnStart} onPress={() => navigation.navigate('Toutes les histoires')}>
-            <Text style={styles.text}>Toutes les histoires</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.btnStart} onPress={() => navigation.navigate("Modifier l'histoire")}>
-            <Text style={styles.text}>Toutes les histoires</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.btnStart} onPress={() => navigation.navigate('Histoire')}>
             <Text style={styles.text}>Toutes les histoires</Text>
           </TouchableOpacity>
 
@@ -146,6 +142,15 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 38,
+    fontWeight: 'bold',
+    color: '#14f819',
+    marginBottom: 10,
+    fontFamily: 'monospace',
+    textAlign: 'center',
+    marginBottom: 20,
+  },
+  styleTempo_a_delete: {
+    fontSize: 20,
     fontWeight: 'bold',
     color: '#14f819',
     marginBottom: 10,
