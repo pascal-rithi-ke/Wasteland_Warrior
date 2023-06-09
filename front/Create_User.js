@@ -56,17 +56,20 @@ const LoginForm = () => {
             <TextInput
                 style={styles.input}
                 placeholder="Email"
+                placeholderTextColor={'white'}
                 value={email}
                 onChangeText={(text) => setEmail(text)}
             />
             <TextInput
                 style={styles.input}
                 placeholder="Nom d'utilisateur"
+                placeholderTextColor={'white'}
                 value={username}
                 onChangeText={(text) => setUsername(text)}
             />
             <TextInput
                 style={styles.input}
+                placeholderTextColor={'white'}
                 secureTextEntry={true}
                 placeholder="Mot de passe"
                 value={password}

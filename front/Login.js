@@ -9,6 +9,8 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
 
+  const [user, setUser] = useState({});
+
   const navigation = useNavigation();
 
   const handleLogin = async () => {
@@ -16,14 +18,15 @@ const Login = () => {
       // Envoyer les données de connexion à l'API
       const response = await axios.post('https://5467-130-180-217-66.ngrok-free.app/Login', { username, password });
       const user = response.data.results;
+      setUser(user);
       // Naviguer vers la page d'accueil
       if(user !== ""){
-        navigation.navigate('Home', { username: user.username });
+        navigation.navigate('Home', { username: user.username, statut: user.statut});
       }
       // Vider le message d'erreur
       setMessage('');
     } catch (error) {
-      setMessage(error.message);
+      setMessage("Nom d'utilisateur ou mot de passe incorrect");
     }
   };
 
@@ -111,6 +114,11 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: 10,
     fontWeight: 'bold',
+  },
+  errorMessage: {
+    color: '#F55',
+    textAlign: 'center',
+    marginTop: 10,
   },
 });
 

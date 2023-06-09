@@ -7,6 +7,7 @@ import axios from 'axios';
 
 function HomeScreen({ route }) {
   const { email, username, statut } = route.params || {};
+  
   let [user] = useState({});
   const [errorMessage, setErrorMessage] = useState('');
   const navigation = useNavigation();
@@ -45,7 +46,7 @@ function HomeScreen({ route }) {
         setErrorMessage(error.message);
       }
       setErrorMessage('');
-    } else if (statut === 'admin') {
+    } else if (user.statut === 'admin') {
       setErrorMessage('Vous ne pouvez pas supprimer un compte administrateur !');
     }
   };
@@ -65,22 +66,10 @@ function HomeScreen({ route }) {
           <Text style={styles.error}>{errorMessage}</Text>
         )}
 
+        {statut==="player" && (
         <TouchableOpacity style={styles.btnStart} onPress={() => navigation.navigate('Synopsis')}>
           <Text style={styles.text}>Jouer</Text>
         </TouchableOpacity>
-
-        {/* à remettre quand tout est bon
-        {email && username && (
-          <TouchableOpacity style={styles.btnStart} onPress={() => navigation.navigate('Synopsis')}>
-            <Text style={styles.text}>Jouer</Text>
-          </TouchableOpacity>
-        )}
-        */}
-
-        {email || username && (
-          <TouchableOpacity style={styles.btnStart} onPress={() => navigation.navigate('ContinueGame')}>
-            <Text style={styles.text}>Reprendre la partie</Text>
-          </TouchableOpacity>
         )}
 
         <TouchableOpacity style={styles.btnStart} onPress={() => navigation.navigate('Règles')}>
@@ -99,43 +88,27 @@ function HomeScreen({ route }) {
           </TouchableOpacity>
         )}
 
+        {statut === 'admin' && (
+          <TouchableOpacity style={styles.btnStart} onPress={() => navigation.navigate('Ajouter histoire')}>
+            <Text style={styles.text}>Ajouter Histoire</Text>
+          </TouchableOpacity>
+        )}
+
+        {statut === 'admin' && (
+          <TouchableOpacity style={styles.btnStart} onPress={() => navigation.navigate('Toutes les histoires')}>
+            <Text style={styles.text}>Toutes les histoires</Text>
+          </TouchableOpacity>
+        )}
+
+
         {email || username && (
         <TouchableOpacity style={styles.btnStart} onPress={handleLogout}>
           <Text style={styles.text}>Déconnexion</Text>
         </TouchableOpacity>
         )}
         
-        {/* à remettre quand tout est bon
-        {statut === 'admin' && (
-          <TouchableOpacity style={styles.btnStart} onPress={() => navigation.navigate('Ajouter histoire')}>
-            <Text style={styles.text}>Ajouter Histoire</Text>
-          </TouchableOpacity>
-        )}
-        */}
-
-          {/* à supprimer quand le style est fait*/}
-          <Text style={styles.title}>Page à styliser</Text>
-          {/* à supprimer quand le style est fait*/}
-          <TouchableOpacity style={styles.btnStart} onPress={() => navigation.navigate('Ajouter histoire')}>
-            <Text style={styles.text}>Ajouter Histoire</Text>
-          </TouchableOpacity>
-
-          <Text style={styles.styleTempo_a_delete}>Page update & une Histoire à stylisé quand on clique sur une Histoire</Text>
-          <TouchableOpacity style={styles.btnStart} onPress={() => navigation.navigate('Toutes les histoires')}>
-            <Text style={styles.text}>Toutes les histoires</Text>
-          </TouchableOpacity>
-
-        {/* à remettre quand tout est bon
-        {statut === 'admin' && (
-          <TouchableOpacity style={styles.btnStart} onPress={() => navigation.navigate('Toutes les histoires')}>
-            <Text style={styles.text}>Toutes les histoires</Text>
-          </TouchableOpacity>
-        )}
-        */}
-
-        {email && <Text style={styles.text}>Email: {email}</Text>}
         {username && <Text style={styles.text}>Username: {username}</Text>}
-        {statut && <Text style={styles.text}>Statut: {statut}</Text>}
+        <Text style={{color:"white"}}>{statut}</Text>
       </ImageBackground>
     </View>
   );
