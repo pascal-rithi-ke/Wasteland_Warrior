@@ -7,7 +7,7 @@ import axios from 'axios';
 
 function HomeScreen({ route }) {
   const { email, username, statut } = route.params || {};
-  const [user, setUser] = useState({});
+  let [user] = useState({});
   const [errorMessage, setErrorMessage] = useState('');
   const navigation = useNavigation();
 
@@ -50,6 +50,12 @@ function HomeScreen({ route }) {
     }
   };
 
+  const handleLogout = () => {
+    navigation.navigate('Home');
+    user = {};
+    setErrorMessage('');
+  };
+
   return (
     <View style={styles.containerStart}>
       <ImageBackground source={require('../assets/fond.png')} resizeMode="cover" style={styles.background}>
@@ -71,7 +77,7 @@ function HomeScreen({ route }) {
         )}
         */}
 
-        {email && username && (
+        {email || username && (
           <TouchableOpacity style={styles.btnStart} onPress={() => navigation.navigate('ContinueGame')}>
             <Text style={styles.text}>Reprendre la partie</Text>
           </TouchableOpacity>
@@ -87,12 +93,18 @@ function HomeScreen({ route }) {
           </TouchableOpacity>
         )}
 
-        {email && username && (
+        {email || username && (
           <TouchableOpacity style={styles.btnStart} onPress={handleDeleteAccount}>
             <Text style={styles.text}>Supprimer le compte</Text>
           </TouchableOpacity>
         )}
 
+        {email || username && (
+        <TouchableOpacity style={styles.btnStart} onPress={handleLogout}>
+          <Text style={styles.text}>Déconnexion</Text>
+        </TouchableOpacity>
+        )}
+        
         {/* à remettre quand tout est bon
         {statut === 'admin' && (
           <TouchableOpacity style={styles.btnStart} onPress={() => navigation.navigate('Ajouter histoire')}>
@@ -103,8 +115,7 @@ function HomeScreen({ route }) {
 
           {/* à supprimer quand le style est fait*/}
           <Text style={styles.title}>Page à styliser</Text>
-          {/* à supprimer quand le style est fait*/
-          }
+          {/* à supprimer quand le style est fait*/}
           <TouchableOpacity style={styles.btnStart} onPress={() => navigation.navigate('Ajouter histoire')}>
             <Text style={styles.text}>Ajouter Histoire</Text>
           </TouchableOpacity>

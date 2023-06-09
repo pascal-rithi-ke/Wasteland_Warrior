@@ -15,19 +15,15 @@ const Login = () => {
     try {
       // Envoyer les données de connexion à l'API
       const response = await axios.post('https://5467-130-180-217-66.ngrok-free.app/Login', { username, password });
-      const { success, message } = response.data;
-
-      if (success) {
-        // Connexion réussie, effectuer les actions nécessaires ici
-        // par exemple, naviguer vers la page Home ou afficher un message de connexion réussie
-      } else {
-        // Afficher le message d'erreur
-        setMessage(message);
+      const user = response.data.results;
+      // Naviguer vers la page d'accueil
+      if(user !== ""){
+        navigation.navigate('Home', { username: user.username });
       }
+      // Vider le message d'erreur
+      setMessage('');
     } catch (error) {
-      console.error(error);
-      // Afficher le message d'erreur
-      setMessage("Une erreur s'est produite lors de la connexion.");
+      setMessage(error.message);
     }
   };
 

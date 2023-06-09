@@ -7,20 +7,22 @@ from service.mongo import get_mongo_collection_user
 
 user_bp = Blueprint('user_bp', __name__)
 
+
 @user_bp.route("/getAllUser")
 def getAllUser():
     mycol = get_mongo_collection_user()
     result = mycol.find()
-    
+
     # Conversion des _id en format ObjectId
     results_with_objectid = []
     for doc in result:
         doc['_id'] = str(doc['_id'])  # Convertir en str pour JSON
         results_with_objectid.append(doc)
-        
+
     response = jsonify({'results': results_with_objectid})
     response.headers.add("Access-Control-Allow-Origin", "*")
     return response
+
 
 @user_bp.route("/getUserById/<id>")
 def getUserById(id):
@@ -29,11 +31,13 @@ def getUserById(id):
     result = mycol.find_one({"_id": object_id})
 
     if result:
-        result['_id'] = str(result['_id'])  # Convertir l'ObjectId en une chaîne de caractères
+        # Convertir l'ObjectId en une chaîne de caractères
+        result['_id'] = str(result['_id'])
 
     response = jsonify({'results': result})
     response.headers.add("Access-Control-Allow-Origin", "*")
     return response
+
 
 @user_bp.route("/SearchUser/<email>/<username>", methods=['GET'])
 def SearchUser(email, username):
@@ -48,17 +52,18 @@ def SearchUser(email, username):
     return response
 
 
-@user_bp.route("/GetStatutUser/<username>", methods = ['GET'])
+@user_bp.route("/GetStatutUser/<username>", methods=['GET'])
 def GetStatutUser(username):
     mycol = get_mongo_collection_user()
     result = mycol.find_one({"username": username})
-    
+
     if result:
         result['_id'] = str(result['_id'])
-    
+
     response = jsonify({'results': result})
     response.headers.add("Access-Control-Allow-Origin", "*")
     return response
+
 
 @user_bp.route("/DeleteUserById/<id>", methods=['DELETE'])
 def DeleteUserById(id):
@@ -74,22 +79,27 @@ def DeleteUserById(id):
     response.headers.add("Access-Control-Allow-Origin", "*")
     return response
 
+
 @user_bp.route("/InsertUser", methods=['POST'])
 def InsertUser():
-    user_data = request.json  # Récupérer les données de l'utilisateur à partir de la requête JSON
+    # Récupérer les données de l'utilisateur à partir de la requête JSON
+    user_data = request.json
 
     # Crypter le mot de passe
     password = user_data.get('password')
-    hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt(10))
+    hashed_password = bcrypt.hashpw(
+        password.encode('utf-8'), bcrypt.gensalt(10))
 
     # Mettre à jour les données de l'utilisateur avec le mot de passe crypté
     user_data['password'] = hashed_password.decode('utf-8')
 
     mycol = get_mongo_collection_user()
-    result = mycol.insert_one(user_data)  # Insérer les données de l'utilisateur dans la collection
+    # Insérer les données de l'utilisateur dans la collection
+    result = mycol.insert_one(user_data)
 
     if result:
-        user_data['_id'] = str(result.inserted_id)  # Convertir l'ObjectId en une chaîne de caractères
+        # Convertir l'ObjectId en une chaîne de caractères
+        user_data['_id'] = str(result.inserted_id)
 
     response = jsonify({'results': user_data})
     response.headers.add("Access-Control-Allow-Origin", "*")
@@ -109,30 +119,27 @@ def UpdateUserById(id):
     return response
 
 
-@user_bp.route("/Login", methods=['POST'])
+@user_bp.route("/Login", methods=['GET','POST'])
 def Login():
-    user_data = request.json  # Récupérer les données de l'utilisateur à partir de la requête JSON
+    # Récupérer les données de l'utilisateur à partir de la requête JSON
+    user_data = request.json
 
     username = user_data.get('username')
     password = user_data.get('password')
 
     mycol = get_mongo_collection_user()
-    user = mycol.find_one({"username": username})  # Rechercher l'utilisateur dans la collection
+    # Rechercher l'utilisateur dans la collection
+    user = mycol.find_one({"username": username})
 
     if user:
-        # Vérifier si le mot de passe correspond au mot de passe crypté dans la base de données
+    # Vérifier le mot de passe
         if bcrypt.checkpw(password.encode('utf-8'), user['password'].encode('utf-8')):
-            # Connexion réussie
-            user['_id'] = str(user['_id'])  # Convertir l'ObjectId en une chaîne de caractères
+            user['_id'] = str(user['_id'])
             response = jsonify({'results': user})
-            response.headers.add("Access-Control-Allow-Origin", "*")
-            return response
-
-    # Identifiants invalides ou utilisateur non trouvé
-    response = jsonify({'results': None})
+        else:
+            response = jsonify({'results': None})
+    else:
+        response = jsonify({'results': None})
+        
     response.headers.add("Access-Control-Allow-Origin", "*")
     return response
-
-
-
-
