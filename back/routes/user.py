@@ -35,8 +35,6 @@ def getUserById(id):
     response.headers.add("Access-Control-Allow-Origin", "*")
     return response
 
-
-
 @user_bp.route("/DeleteUserById/<id>", methods = ['DELETE'])
 def DeleteUserById(id):
     mycol = get_mongo_collection_user()

@@ -7,15 +7,14 @@ historique_partie = Blueprint('historique_partie', __name__)
 
 
 # Initialise les points
-@historique_partie.route("/InitializeUserCharacteristics/<id>", methods=['POST'])
+@historique_partie.route("/InitializeUserCharacteristics/<id>", methods=['GET'])
 def InitializeUserCharacteristics(id):
     initial_points = 3
     
     mycol = get_mongo_collection_historique_partie()
-    object_id = ObjectId(id)
     
     # Vérifier si l'utilisateur existe dans la base de données
-    user = mycol.find_one({"_id": object_id})
+    user = mycol.find_one({"_id": id})
     if user:
         characteristics = {
             "strength": initial_points,
@@ -26,7 +25,7 @@ def InitializeUserCharacteristics(id):
         }
         
         user['characteristics'] = characteristics
-        result = mycol.insert_one({"_id": object_id}, user)
+        result = mycol.insert_one({"_id": id}, user)
         
         if result.modified_count > 0:
             response = jsonify({'message': 'Caractéristiques initialisées avec succès'})
