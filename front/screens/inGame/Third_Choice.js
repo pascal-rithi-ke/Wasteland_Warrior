@@ -28,8 +28,7 @@ const Third_Choice = ({ navigation }) => {
       <TouchableOpacity style={styles.choiceCard} onPress={handleChoice2}>
         <Text style={styles.choiceOption}>
           2: Lui lancer votre seul paquet de bœuf séché (nécessite 4 de charisme)
-          Félicitations ! Vous avez gagné un compagnon !
-          -2 d'endurance
+          
         </Text>
       </TouchableOpacity>
       <Text style={styles.notEnoughCharismaText}>
