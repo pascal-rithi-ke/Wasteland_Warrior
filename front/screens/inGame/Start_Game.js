@@ -27,7 +27,7 @@ const Start_Game = ({ navigation }) => {
       <TouchableOpacity style={styles.choiceCard} onPress={handleChoice1}>
         <Text style={styles.choiceOption}>
           1: Vous prenez votre pioche avec vous, on ne sait jamais...
-          -1 point d'endurance.
+          (-1 point d'endurance)
         </Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.choiceCard} onPress={handleChoice2}>
