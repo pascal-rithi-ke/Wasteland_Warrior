@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Button } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 const Caracteristiques = ({ onUpdateCaracteristiques }) => {
   const [force, setForce] = useState(3);
@@ -7,6 +8,9 @@ const Caracteristiques = ({ onUpdateCaracteristiques }) => {
   const [endurance, setEndurance] = useState(3);
   const [sante, setSante] = useState(3);
   const [pointsRestants, setPointsRestants] = useState(5);
+  const navigation = useNavigation();
+
+
 
   const moreForce = () => {
     if (pointsRestants > 0 && force < 6) {
@@ -64,15 +68,24 @@ const Caracteristiques = ({ onUpdateCaracteristiques }) => {
     }
   }
 
-  const handleSaveCaracteristiques = () => {
-    const caracteristiques = {
-      force,
-      charisme,
-      endurance,
-      sante,
-    };
-    onUpdateCaracteristiques(caracteristiques);
+  // const handleSaveCaracteristiques = () => {
+  //   const caracteristiques = {
+  //     force,
+  //     charisme,
+  //     endurance,
+  //     sante,
+  //   };
+  // }
+
+  const toStartGame = () => {
+    navigation.navigate('Start_Game');
   };
+
+
+  //   onUpdateCaracteristiques(caracteristiques);
+  //   navigation.navigate('Start_Game');
+  
+  // };
 
   return (
     <View style={styles.container}>
@@ -156,7 +169,7 @@ const Caracteristiques = ({ onUpdateCaracteristiques }) => {
           </TouchableOpacity>
         </View>
       </View>
-      <TouchableOpacity style={styles.saveButton} onPress={handleSaveCaracteristiques}>
+      <TouchableOpacity style={styles.saveButton} onPress={toStartGame}>
         <Text style={styles.saveButtonText}>Enregistrer</Text>
       </TouchableOpacity>
     </View>
