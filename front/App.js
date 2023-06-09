@@ -10,7 +10,6 @@ import Choix_Hero from './Choix_Hero';
 
 import Caracteristiques from './Caracteristiques';
 
-
 import ContinueGame from './screens/inGame/ContinueGame';
 import Start_Game from './screens/inGame/Start_Game';
 
@@ -32,10 +31,7 @@ import Sixth_Choice from './screens/inGame/Sixth_Choice';
 import Epilogue_Win from './screens/inGame/Epilogue_Win';
 import Epilogue_Death from './screens/inGame/Epilogue_Death';
 import Fight from './screens/inGame/Fight';
-import Reason from './screens/inGame/reason';
-
-
-
+import Reason from './screens/inGame/Reason';
 
 import GameOver from './screens/inGame/GameOver';
 
