@@ -49,14 +49,18 @@ function GetAllHistoire(){
 const styles = StyleSheet.create({
     GetAllHistoire: {
         flex: 1,
-        padding: 20,
-        marginTop: 20
+        justifyContent: 'center',
+        paddingHorizontal: 20,
+        backgroundColor: 'rgba(0, 0, 0, 0.8)'
     },
     titreScreen: {
-        fontSize: 20,
+        fontSize: 30,
         fontWeight: 'bold',
         textAlign: 'center',
-        marginBottom: 20
+        marginBottom: 20,
+        marginTop: 20,
+        color: '#14f819',
+        fontFamily: 'monospace',
     },
     histoire_container: {
         flex: 1,
