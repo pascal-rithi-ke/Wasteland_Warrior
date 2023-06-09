@@ -15,7 +15,7 @@ const Fourth_Choice = () => {
 
   const handleChoice3 = () => {
     // Logique pour le choix 3
-    navigation.navigate('Fifth_Choice');
+    navigation.navigate('FightWithDog');
   };
 
   return (
@@ -36,19 +36,20 @@ const Fourth_Choice = () => {
       </TouchableOpacity>
       <TouchableOpacity style={styles.choiceCard} onPress={handleChoice3}>
         <Text style={styles.choiceOption}>
-          3: Attaquer avec votre compagnon à 4 pattes
-          +2 de force
-          +Récupérer la clé
+          3: Les attaquer avec votre compagnon à 4 pattes
         </Text>
       </TouchableOpacity>
+    </View>
+  );
+};
+
+/*
       <Text style={styles.gameOverText}>Si vous êtes vivant après le premier choix : "Vous êtes salement amoché, vous pensiez vraiment réussir quelque chose ?"</Text>
       <Text style={styles.gameOverText}>Si vous mourrez après le premier choix : "L'un des bandits vous a poignardé, vous voyez la lumière au bout du tunnel... GAME OVER !"</Text>
       <Text style={styles.gameOverText}>Si vous échouez dans le deuxième choix : "Ils vous tabassent, même résultat que pour le premier choix."</Text>
       <Text style={styles.successText}>Si vous réussissez dans le deuxième choix : "Vous repartez sain et sauf !"</Text>
       <Text style={styles.successText}>Si vous choisissez le troisième choix : "Heureusement que le meilleur ami de l'homme était là pour vous !"</Text>
-    </View>
-  );
-};
+*/
 
 const styles = StyleSheet.create({
   container: {
@@ -56,6 +57,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor:'rgba(0, 0, 0, 0.8)',
+    paddingHorizontal: 20,
   },
   image: {
     width: 200,
@@ -80,6 +82,7 @@ const styles = StyleSheet.create({
     padding: 10,
     marginBottom: 10,
     borderRadius: 5,
+    width: '100%',
   },
   choiceOption: {
     fontSize: 16,

@@ -156,7 +156,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: '#fff',
-    fontSize: 9,
+    fontSize: 20,
     fontWeight: 'bold',
     fontFamily: 'monospace',
   },

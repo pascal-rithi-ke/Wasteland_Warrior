@@ -4,6 +4,7 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 const Third_Choice = ({ navigation }) => {
   const handleChoice1 = () => {
     // Logique pour le choix 1
+    navigation.navigate('FightDog');
   };
 
   const handleChoice2 = () => {
@@ -22,13 +23,11 @@ const Third_Choice = ({ navigation }) => {
       <TouchableOpacity style={styles.choiceCard} onPress={handleChoice1}>
         <Text style={styles.choiceOption}>
           1: L'attaquer avec la pioche
-          -3 de santé
         </Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.choiceCard} onPress={handleChoice2}>
         <Text style={styles.choiceOption}>
           2: Lui lancer votre seul paquet de bœuf séché (nécessite 4 de charisme)
-          
         </Text>
       </TouchableOpacity>
       <Text style={styles.notEnoughCharismaText}>

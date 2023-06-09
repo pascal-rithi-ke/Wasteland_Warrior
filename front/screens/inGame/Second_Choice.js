@@ -20,12 +20,12 @@ const Second_Choice = ({ navigation }) => {
       </Text>
       <TouchableOpacity style={styles.choiceCard} onPress={handleChoice1}>
         <Text style={styles.choiceOption}>
-          1er choix: Vous vous approchez discrètement pour investiguer le bruit.
+          1: Vous vous approchez discrètement pour investiguer le bruit.
         </Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.choiceCard} onPress={handleChoice2}>
         <Text style={styles.choiceOption}>
-          2e choix: Vous décidez de contourner la station-service et poursuivre votre route.
+          2: Vous décidez de contourner la station-service et poursuivre votre route.
         </Text>
       </TouchableOpacity>
     </View>
