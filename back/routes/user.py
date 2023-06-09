@@ -35,6 +35,18 @@ def getUserById(id):
     response.headers.add("Access-Control-Allow-Origin", "*")
     return response
 
+@user_bp.route("/GetStatutUser/<username>", methods = ['GET'])
+def GetStatutUser(username):
+    mycol = get_mongo_collection_user()
+    result = mycol.find_one({"username": username})
+    
+    if result:
+        result['_id'] = str(result['_id'])
+    
+    response = jsonify({'results': result})
+    response.headers.add("Access-Control-Allow-Origin", "*")
+    return response
+
 @user_bp.route("/DeleteUserById/<id>", methods = ['DELETE'])
 def DeleteUserById(id):
     mycol = get_mongo_collection_user()

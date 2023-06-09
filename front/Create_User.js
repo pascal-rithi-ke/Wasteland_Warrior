@@ -32,13 +32,14 @@ const LoginForm = () => {
                         email,
                         username,
                         password,
+                        statut: 'player',
                     }
                 );
                 setEmail('');
                 setUsername('');
                 setPassword('');
                 setErreur('');
-                navigation.navigate('Home');
+                navigation.navigate('Home', {email, username, statut: 'player'});
             }
         } catch (error) {
             setErreur(error.message);
