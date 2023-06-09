@@ -1,7 +1,15 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 
-const Third_Choice = ({ handleChoice1, handleChoice2 }) => {
+const Third_Choice = ({ navigation }) => {
+  const handleChoice1 = () => {
+    // Logique pour le choix 1
+  };
+
+  const handleChoice2 = () => {
+    navigation.navigate('Dog_Friendly');
+  };
+
   return (
     <View style={styles.container}>
       <Image source={require('../../assets/game/Rencontre_Chien.png')} style={styles.image} />
@@ -13,13 +21,13 @@ const Third_Choice = ({ handleChoice1, handleChoice2 }) => {
       </Text>
       <TouchableOpacity style={styles.choiceCard} onPress={handleChoice1}>
         <Text style={styles.choiceOption}>
-          1) L'attaquer avec la pioche
+          1: L'attaquer avec la pioche
           -3 de santé
         </Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.choiceCard} onPress={handleChoice2}>
         <Text style={styles.choiceOption}>
-          2) Lui lancer votre seul paquet de bœuf séché (nécessite 4 de charisme)
+          2: Lui lancer votre seul paquet de bœuf séché (nécessite 4 de charisme)
           Félicitations ! Vous avez gagné un compagnon !
           -2 d'endurance
         </Text>

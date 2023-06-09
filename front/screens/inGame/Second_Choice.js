@@ -1,19 +1,33 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 
-const Second_Choice = () => {
+const Second_Choice = ({ navigation }) => {
+  const handleChoice1 = () => {
+    // Logique pour le premier choix
+    navigation.navigate('Third_Choice');
+  };
+
+  const handleChoice2 = () => {
+    // Logique pour le deuxième choix
+    navigation.navigate('Fourth_Choice');
+  };
+
   return (
     <View style={styles.container}>
       <Image source={require('../../assets/game/Gas_Station.png')} style={styles.image} />
       <Text style={styles.storyText}>
         Vous continuez votre chemin et arrivez à une station-service abandonnée. Soudain, vous entendez un bruit provenant de l'intérieur du bâtiment. Que décidez-vous de faire ?
       </Text>
-      <Text style={styles.choiceText}>
-        1er choix: Vous vous approchez discrètement pour investiguer le bruit.
-      </Text>
-      <Text style={styles.choiceText}>
-        2e choix: Vous décidez de contourner la station-service et poursuivre votre route.
-      </Text>
+      <TouchableOpacity style={styles.choiceCard} onPress={handleChoice1}>
+        <Text style={styles.choiceOption}>
+          1er choix: Vous vous approchez discrètement pour investiguer le bruit.
+        </Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.choiceCard} onPress={handleChoice2}>
+        <Text style={styles.choiceOption}>
+          2e choix: Vous décidez de contourner la station-service et poursuivre votre route.
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -37,11 +51,16 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     color: '#FFFFFF'
   },
-  choiceText: {
-    fontSize: 20,
-    fontWeight: 'bold',
+  choiceCard: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: 10,
+    padding: 10,
+    marginVertical: 5,
+    width: '100%',
+  },
+  choiceOption: {
+    fontSize: 16,
     marginBottom: 10,
-    color: '#FFFFFF'
   },
 });
 

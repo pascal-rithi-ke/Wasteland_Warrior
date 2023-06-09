@@ -16,6 +16,7 @@ import GetAllHistoire from './screens/Histoire/GetAllHistoire';
 import GetHistoire from './screens/Histoire/GetHistoire';
 import Second_Choice from './screens/inGame/Second_Choice';
 import Third_Choice from './screens/inGame/Third_Choice';
+import Dog_Friendly from './screens/inGame/Dog_Friendly';
 import Fourth_Choice from './screens/inGame/Fourth_Choice';
 import Fifth_Choice from './screens/inGame/Fifth_Choice';
 import Sixth_Choice from './screens/inGame/Sixth_Choice';
@@ -49,6 +50,7 @@ export default function App() {
         <Stack.Screen name="Start_Game" component={Start_Game} options={{headerShown:false}} />
         <Stack.Screen name="Second_Choice" component={Second_Choice} options={{headerShown:false}} />
         <Stack.Screen name="Third_Choice" component={Third_Choice} options={{headerShown:false}} />
+        <Stack.Screen name="Dog_Friendly" component={Dog_Friendly} options={{headerShown:false}} />
         <Stack.Screen name="Fourth_Choice" component={Fourth_Choice} options={{headerShown:false}} />
         <Stack.Screen name="Fifth_Choice" component={Fifth_Choice} options={{headerShown:false}} />
         <Stack.Screen name="Sixth_Choice" component={Sixth_Choice} options={{headerShown:false}} />
