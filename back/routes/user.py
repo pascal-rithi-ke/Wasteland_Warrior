@@ -35,6 +35,19 @@ def getUserById(id):
     response.headers.add("Access-Control-Allow-Origin", "*")
     return response
 
+@user_bp.route("/SearchUser/<email>/<username>", methods=['GET'])
+def SearchUser(email, username):
+    mycol = get_mongo_collection_user()
+    result = mycol.find_one({"email": email, "username": username})
+
+    if result:
+        result['_id'] = str(result['_id'])
+
+    response = jsonify({'results': result})
+    response.headers.add("Access-Control-Allow-Origin", "*")
+    return response
+
+
 @user_bp.route("/GetStatutUser/<username>", methods = ['GET'])
 def GetStatutUser(username):
     mycol = get_mongo_collection_user()
@@ -47,20 +60,19 @@ def GetStatutUser(username):
     response.headers.add("Access-Control-Allow-Origin", "*")
     return response
 
-@user_bp.route("/DeleteUserById/<id>", methods = ['DELETE'])
+@user_bp.route("/DeleteUserById/<id>", methods=['DELETE'])
 def DeleteUserById(id):
     mycol = get_mongo_collection_user()
     object_id = ObjectId(id)  # Convertir le paramètre id en ObjectId
     result = mycol.delete_one({"_id": object_id})
 
-    if result:
-        result['_id'] = str(result['_id'])  # Convertir l'ObjectId en une chaîne de caractères
+    if result.deleted_count > 0:
+        response = jsonify({'message': 'User deleted successfully'})
+    else:
+        response = jsonify({'message': 'User not found'})
 
-    response = jsonify({'results': result})
     response.headers.add("Access-Control-Allow-Origin", "*")
     return response
-
-
 
 @user_bp.route("/InsertUser", methods=['POST'])
 def InsertUser():

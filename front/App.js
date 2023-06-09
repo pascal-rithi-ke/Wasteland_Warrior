@@ -15,7 +15,6 @@ import Start_Game from './screens/inGame/Start_Game';
 
 import Create_User from './Create_User';
 import Login from './Login';
-import Delete_User from './Delete_User';
 
 import Add_Histoire from './screens/Histoire/Form_Histoire/Add_Histoire';
 import GetAllHistoire from './screens/Histoire/GetAllHistoire';
@@ -56,7 +55,6 @@ export default function App() {
         <Stack.Screen name="Caracteristiques" component={Caracteristiques} options={{headerShown:false}} />
         
         <Stack.Screen name="Inscription" component={Create_User} options={{headerShown:false}} />
-        <Stack.Screen name="Suppresion compte" component={Delete_User}/>
         <Stack.Screen name="Connexion" component={Login} options={{headerShown:false}} />
         
         <Stack.Screen name="ContinueGame" component={ContinueGame} options={{headerShown:false}} />
