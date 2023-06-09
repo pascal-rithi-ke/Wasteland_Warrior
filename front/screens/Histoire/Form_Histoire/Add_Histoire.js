@@ -48,12 +48,14 @@ function Add_Histoire() {
                 <TextInput
                     style={styles.input}
                     placeholder="Titre"
+                    placeholderTextColor={'white'}
                     value={title}
                     onChangeText={setTitle}
                 />
                 <TextInput
                     style={styles.input}
                     placeholder="Chapitre"
+                    placeholderTextColor={'white'}
                     value={chapitre}
                     keyboardType="numeric"
                     onChangeText={setChapitre}
@@ -71,43 +73,47 @@ function Add_Histoire() {
 }
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        padding: 20,
-        justifyContent: 'center'
+      flex: 1,
+      justifyContent: 'center',
+      paddingHorizontal: 20,
+      backgroundColor: 'rgba(0, 0, 0, 0.8)'
     },
     title: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        textAlign: 'center',
-        marginBottom: 20
+      fontSize: 30,
+      fontWeight: 'bold',
+      textAlign: 'center',
+      marginBottom: 20,
+      color: '#14f819',
+      fontFamily: 'monospace',
     },
     input: {
-        borderColor: '#000',
-        borderWidth: 1,
-        marginBottom: 20,
-        padding: 10
+      height: 40,
+      borderWidth: 3,
+      backgroundColor: 'rgba(14, 130, 16, 0.2)',
+      borderRadius: 30,
+      borderColor: '#14f819',
+      marginBottom: 10,
+      paddingHorizontal: 10,
+      color: '#fff',
     },
     button: {
-        backgroundColor: '#000',
-        borderRadius: 30,
-        marginBottom: 20,
-        padding: 15
+      padding: 10,
+      alignItems: 'center',
+      borderWidth: 3,
+      backgroundColor: '#0e8210',
+      borderRadius: 30,
+      borderColor: '#14f819',
     },
     buttonText: {
-        color: '#fff',
-        fontSize: 20,
-        fontWeight: 'bold',
-        textAlign: 'center'
+      color: '#FFF',
+      fontWeight: 'bold',
     },
     erreur: {
-        color: 'red',
-        textAlign: 'center',
-        marginBottom: 20
+      color: '#F55',
+      textAlign: 'center',
+      marginTop: 10,
     },
     item: {
-        borderColor: '#000',
-        borderWidth: 1,
         marginBottom: 20,
         padding: 10
     },
