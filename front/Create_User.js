@@ -4,77 +4,112 @@ import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
 
 const LoginForm = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [erreur, setErreur] = useState('');
 
-  const navigation = useNavigation();
+    const navigation = useNavigation();
 
-  const handleLogin = async () => {
-    try {
-      const response = await axios.post('https://5467-130-180-217-66.ngrok-free.app/Login', {
-        email,
-        password,
-      });
-      console.log(response.data);
-      console.log('Connexion réussie !');
-
-      // Effectuer les actions souhaitées après la connexion réussie
-
-      // Exemple : Naviguer vers l'écran Home
-      navigation.navigate('Home');
-    } catch (error) {
-      console.error(error);
-
-      Alert.alert('Erreur', 'Identifiants invalides. Veuillez réessayer.');
+    const handleLogin = async () => {
+        try {
+            if (email === '' || password === '') {
+                setErreur('Veuillez remplir tous les champs !');
+                return;
+            }
+            else if (password.length < 6) {
+                setErreur('Le mot de passe doit contenir au moins 6 caractères !');
+                return;
+            }
+            else if (!email.includes('@')) {
+                setErreur('Veuillez entrer une adresse email valide !');
+                return;
+            } else {
+                const response = await axios.post(
+                    'https://5467-130-180-217-66.ngrok-free.app/login',
+                    {
+                        email,
+                        password,
+                    }
+                );
+                setEmail('');
+                setPassword('');
+                setErreur('');
+                navigation.navigate('Toutes les histoires');
+            }
+        } catch (error) {
+            setErreur(error.message);
+        }
     }
-  };
 
-  return (
-    <View style={styles.container}>
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        value={email}
-        onChangeText={setEmail}
-        keyboardType="email-address"
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Mot de passe"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-      />
-      <TouchableOpacity style={styles.button} onPress={handleLogin}>
-        <Text style={styles.buttonText}>Se connecter</Text>
-      </TouchableOpacity>
-    </View>
-  );
+    const signIn = () => {
+        navigation.navigate('Connexion');
+    }
+
+    return (
+        <View style={styles.container}>
+            <Text style={styles.title}>Inscription</Text>
+            <TextInput
+                style={styles.input}
+                placeholder="Email"
+                value={email}
+                onChangeText={(text) => setEmail(text)}
+            />
+            <TextInput
+                style={styles.input}
+                secureTextEntry={true}
+                placeholder="Mot de passe"
+                value={password}
+                onChangeText={(text) => setPassword(text)}
+            />
+            <TouchableOpacity style={styles.button} onPress={handleLogin}>
+                <Text style={styles.buttonText}>S'inscrire</Text>
+            </TouchableOpacity>
+            {erreur ? <Text style={styles.erreur}>{erreur}</Text> : null}
+            <TouchableOpacity onPress={signIn}>
+                <Text style={styles.signUp}>Déjà un compte ? Se connecter</Text>
+            </TouchableOpacity>
+        </View>
+    );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    paddingHorizontal: 20,
-    backgroundColor: '#fff',
-  },
-  input: {
-    height: 40,
-    borderWidth: 1,
-    borderColor: '#ccc',
-    marginBottom: 10,
-    paddingHorizontal: 10,
-  },
-  button: {
-    backgroundColor: 'blue',
-    padding: 10,
-    alignItems: 'center',
-  },
-  buttonText: {
-    color: '#fff',
-    fontWeight: 'bold',
-  },
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        paddingHorizontal: 20,
+        backgroundColor: '#fff',
+    },
+    title: {
+        fontSize: 30,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        marginBottom: 20,
+    },
+    input: {
+        height: 40,
+        borderWidth: 1,
+        borderColor: '#ccc',
+        marginBottom: 10,
+        paddingHorizontal: 10,
+    },
+    button: {
+        backgroundColor: 'blue',
+        padding: 10,
+        alignItems: 'center',
+    },
+    buttonText: {
+        color: '#fff',
+        fontWeight: 'bold',
+    },
+    erreur: {
+        color: 'red',
+        textAlign: 'center',
+        marginTop: 10,
+    },
+    signUp: {
+        textAlign: 'center',
+        marginTop: 10,
+    },
 });
 
 export default LoginForm;

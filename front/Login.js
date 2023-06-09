@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import axios from 'axios';
+
+import { useNavigation } from '@react-navigation/native';
 
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
+
+  const navigation = useNavigation();
 
   const handleLogin = async () => {
     try {
@@ -27,9 +31,14 @@ const Login = () => {
     }
   };
 
+  const handleRegister = () => {
+    navigation.navigate('Inscription');
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Connexion</Text>
+      {message && <Text style={styles.errorMessage}>{message}</Text>}
       <TextInput
         style={styles.input}
         placeholder="Nom d'utilisateur"
@@ -39,12 +48,16 @@ const Login = () => {
       <TextInput
         style={styles.input}
         placeholder="Mot de passe"
-        secureTextEntry
+        secureTextEntry={true}
         value={password}
         onChangeText={setPassword}
       />
-      <Button title="Se connecter" onPress={handleLogin} />
-      {message && <Text style={styles.errorMessage}>{message}</Text>}
+      <TouchableOpacity style={styles.button} onPress={handleLogin}>
+        <Text style={styles.login}>Se connecter</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={handleRegister}>
+        <Text style={styles.signUp}>S'inscrire</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -53,24 +66,43 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
-    padding: 16,
+    paddingHorizontal: 20,
+    backgroundColor: '#fff',
   },
   title: {
-    fontSize: 24,
-    marginBottom: 16,
+    fontSize: 30,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginBottom: 20,
   },
   input: {
-    width: '100%',
     height: 40,
-    borderColor: 'gray',
     borderWidth: 1,
-    marginBottom: 12,
-    paddingLeft: 8,
+    borderColor: '#ccc',
+    marginBottom: 10,
+    paddingHorizontal: 10,
   },
-  errorMessage: {
+  button: {
+    backgroundColor: 'blue',
+    padding: 10,
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: '#fff',
+    fontWeight: 'bold',
+  },
+  login: {
+    color: '#fff',
+    fontWeight: 'bold',
+  },
+  erreur: {
     color: 'red',
-    marginTop: 12,
+    textAlign: 'center',
+    marginTop: 10,
+  },
+  signUp: {
+    textAlign: 'center',
+    marginTop: 10,
   },
 });
 

@@ -1,3 +1,5 @@
+import bcrypt
+
 from flask import Blueprint, request, jsonify
 from bson import json_util
 from bson.objectid import ObjectId
@@ -83,9 +85,6 @@ def UpdateUserById(id):
     response = jsonify({'results': data})
     response.headers.add("Access-Control-Allow-Origin", "*")
     return response
-
-
-
 
 
 @user_bp.route("/Login", methods=['POST'])

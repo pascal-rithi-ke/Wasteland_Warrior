@@ -56,9 +56,9 @@ export default function App() {
         
         <Stack.Screen name="Caracteristiques" component={Caracteristiques} options={{headerShown:false}} />
         
-        <Stack.Screen name="Create_User" component={Create_User} options={{headerShown:false}} />
-        <Stack.Screen name="Delete_User" component={Delete_User} options={{headerShown:false}} />
-        <Stack.Screen name="Login" component={Login} options={{headerShown:false}} />
+        <Stack.Screen name="Inscription" component={Create_User} options={{headerShown:false}} />
+        <Stack.Screen name="Suppresion compte" component={Delete_User}/>
+        <Stack.Screen name="Connexion" component={Login} options={{headerShown:false}} />
         
         <Stack.Screen name="ContinueGame" component={ContinueGame} options={{headerShown:false}} />
         <Stack.Screen name="Start_Game" component={Start_Game} options={{headerShown:false}} />
