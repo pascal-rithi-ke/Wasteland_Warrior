@@ -92,6 +92,7 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: 50,
         marginTop: 20,
+        backgroundColor: 'rgba(0, 0, 0, 0.8)'
     },
     index: {
         color: 'white',
@@ -101,7 +102,8 @@ const styles = StyleSheet.create({
         fontSize: 25,
         fontWeight: 'bold',
         textAlign: 'center',
-        marginBottom: 20
+        marginBottom: 20,
+        color: 'white'
     },
     updateHistoire: {
         fontSize: 15,
