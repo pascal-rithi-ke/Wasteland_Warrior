@@ -101,11 +101,20 @@ function HomeScreen({ route }) {
         )}
         */}
 
+          <Text style={styles.title}>Page à styliser</Text>
           <TouchableOpacity style={styles.btnStart} onPress={() => navigation.navigate('Ajouter histoire')}>
             <Text style={styles.text}>Ajouter Histoire</Text>
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.btnStart} onPress={() => navigation.navigate('Toutes les histoires')}>
+            <Text style={styles.text}>Toutes les histoires</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.btnStart} onPress={() => navigation.navigate("Modifier l'histoire")}>
+            <Text style={styles.text}>Toutes les histoires</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.btnStart} onPress={() => navigation.navigate('Histoire')}>
             <Text style={styles.text}>Toutes les histoires</Text>
           </TouchableOpacity>
 
