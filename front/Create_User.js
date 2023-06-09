@@ -96,6 +96,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         marginBottom: 20,
         color: '#14f819',
+        fontFamily: 'monospace',
     },
     input: {
         height: 40,
