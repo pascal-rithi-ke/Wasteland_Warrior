@@ -55,7 +55,7 @@ const Login = () => {
         <Text style={styles.buttonText}>Se connecter</Text>
       </TouchableOpacity>
       <TouchableOpacity
-        onPress={() => navigation.navigate('SignUp')}
+        onPress={() => navigation.navigate('Inscription')}
       >
         <Text style={styles.signUp}>Pas encore de compte ?</Text>
       </TouchableOpacity>
