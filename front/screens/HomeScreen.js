@@ -82,8 +82,8 @@ function HomeScreen({ route }) {
         </TouchableOpacity>
 
         {!email && !username && (
-          <TouchableOpacity style={styles.btnStart} onPress={() => navigation.navigate('Inscription')}>
-            <Text style={styles.text}>S'inscrire</Text>
+          <TouchableOpacity style={styles.btnStart} onPress={() => navigation.navigate('Connexion')}>
+            <Text style={styles.text}>Connexion</Text>
           </TouchableOpacity>
         )}
 
