@@ -31,6 +31,7 @@ import Fifth_Choice from './screens/inGame/Fifth_Choice';
 import Sixth_Choice from './screens/inGame/Sixth_Choice';
 import Epilogue_Win from './screens/inGame/Epilogue_Win';
 import Epilogue_Death from './screens/inGame/Epilogue_Death';
+import Fight from './screens/inGame/Fight';
 
 
 
@@ -71,6 +72,7 @@ export default function App() {
         <Stack.Screen name="Sixth_Choice" component={Sixth_Choice} options={{headerShown:false}} />
         <Stack.Screen name="Epilogue_Win" component={Epilogue_Win} options={{headerShown:false}} />
         <Stack.Screen name="Epilogue_Death" component={Epilogue_Death} options={{headerShown:false}} />
+        <Stack.Screen name="Fight" component={Fight} options={{headerShown:false}} />
         
         <Stack.Screen name="Ajouter histoire" component={Add_Histoire}/>
         <Stack.Screen name="Modifier l'histoire" component={Update_Histoire}/>
