@@ -281,26 +281,31 @@ const styles = StyleSheet.create({
     color: '#FFF',
   },
   saveButton: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#0e8210',
+    borderColor: '#14f819',
+    borderWidth: 3,
     borderRadius: 20,
     padding: 10,
     alignItems: 'center',
   },
   saveButtonText: {
+    color: '#FFF',
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#000000',
   },
   randomButton: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: 'rgba(14, 130, 16, 0.2)',
+    borderColor: '#14f819',
+    borderWidth: 3,
     borderRadius: 20,
     padding: 10,
+    marginBottom: 10,
     alignItems: 'center',
   },
   randomButtonText: {
+    color: '#FFF',
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#000000',
   },
 });
 
