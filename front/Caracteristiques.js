@@ -64,6 +64,42 @@ const Caracteristiques = ({ onUpdateCaracteristiques }) => {
     }
   }
 
+  const randomCaracteristiques = () => {
+
+      let randForce = 0;
+      let randCharisme = 0;
+      let randEndurance = 0;
+      let randSante = 0;
+      let pointsLoop = 5
+
+      while (pointsLoop > 0) {
+        let rand = Math.floor(Math.random() * 4);
+        if (rand === 0 && randForce < 3) {
+            randForce++;
+            pointsLoop--; 
+        }
+        if (rand === 1 && randCharisme < 3) {
+          randCharisme++;
+          pointsLoop--;
+        }
+        if (rand === 2 && randEndurance < 3) {
+          randEndurance++;
+          pointsLoop--;
+        }
+        if (rand === 3 && randSante < 3) {
+          randSante++;
+          pointsLoop--;
+        }
+      }
+      
+      setForce(3 + randForce);
+      setCharisme(3 + randCharisme);
+      setEndurance(3 + randEndurance);
+      setSante(3 + randSante);
+      setPointsRestants(0);
+
+  }
+
   const handleSaveCaracteristiques = () => {
     const caracteristiques = {
       force,
@@ -156,6 +192,9 @@ const Caracteristiques = ({ onUpdateCaracteristiques }) => {
           </TouchableOpacity>
         </View>
       </View>
+      <TouchableOpacity style={styles.randomButton} onPress={randomCaracteristiques}>
+        <Text style={styles.randomButtonText}>Aléatoire</Text>
+      </TouchableOpacity>
       <TouchableOpacity style={styles.saveButton} onPress={handleSaveCaracteristiques}>
         <Text style={styles.saveButtonText}>Enregistrer</Text>
       </TouchableOpacity>
@@ -225,6 +264,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   saveButtonText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#000000',
+  },
+  randomButton: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: 20,
+    padding: 10,
+    alignItems: 'center',
+  },
+  randomButtonText: {
     fontSize: 18,
     fontWeight: 'bold',
     color: '#000000',
