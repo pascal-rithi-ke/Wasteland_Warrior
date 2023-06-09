@@ -38,7 +38,7 @@ const LoginForm = () => {
                 setUsername('');
                 setPassword('');
                 setErreur('');
-                navigation.navigate('Toutes les histoires');
+                navigation.navigate('Home');
             }
         } catch (error) {
             setErreur(error.message);
