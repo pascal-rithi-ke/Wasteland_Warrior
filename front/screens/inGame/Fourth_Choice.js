@@ -2,8 +2,12 @@ import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-const Fourth_Choice = ({ handleChoice1, handleChoice2 }) => {
+const Fourth_Choice = ({ handleChoice2 }) => {
   const navigation = useNavigation();
+
+  const handleChoice1 = () => {
+    navigation.navigate('Fight');
+  }
 
   const handleChoice3 = () => {
     // Logique pour le choix 3

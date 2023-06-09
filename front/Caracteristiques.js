@@ -10,8 +10,6 @@ const Caracteristiques = ({ onUpdateCaracteristiques }) => {
   const [pointsRestants, setPointsRestants] = useState(5);
   const navigation = useNavigation();
 
-
-
   const moreForce = () => {
     if (pointsRestants > 0 && force < 6) {
       setForce((prevForce) => Math.min(prevForce + 1, 7));
