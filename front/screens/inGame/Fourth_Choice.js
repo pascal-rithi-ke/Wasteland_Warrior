@@ -57,6 +57,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor:'rgba(0, 0, 0, 0.8)',
+    paddingHorizontal: 20,
   },
   image: {
     width: 200,
@@ -81,6 +82,7 @@ const styles = StyleSheet.create({
     padding: 10,
     marginBottom: 10,
     borderRadius: 5,
+    width: '100%',
   },
   choiceOption: {
     fontSize: 16,
