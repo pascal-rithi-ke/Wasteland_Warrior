@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 
-const ThirdChoice = ({ handleChoice1, handleChoice2 }) => {
+const Third_Choice = ({ handleChoice1, handleChoice2 }) => {
   return (
     <View style={styles.container}>
       <Image source={require('../../assets/game/Rencontre_Chien.png')} style={styles.image} />
@@ -75,4 +75,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ThirdChoice;
+export default Third_Choice;

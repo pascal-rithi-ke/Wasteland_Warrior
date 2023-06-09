@@ -4,12 +4,12 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 const Start_Game = ({ navigation }) => {
   const handleChoice1 = () => {
     // Logique pour le choix 1
-    navigation.navigate('2nd_Choice');
+    navigation.navigate('Second_Choice');
   };
 
   const handleChoice2 = () => {
     // Logique pour le choix 2
-    navigation.navigate('2nd_Choice');
+    navigation.navigate('Second_Choice');
   };
 
   return (

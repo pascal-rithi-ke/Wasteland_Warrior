@@ -13,14 +13,14 @@ const Sixth_Choice = ({ handleChoice1, handleChoice2 }) => {
       </Text>
       <TouchableOpacity style={styles.choiceCard} onPress={handleChoice1}>
         <Text style={styles.choiceOption}>
-          1) Tenter
+          1: Tenter
           Visiblement, ça fait une éternité que vous n'avez pas fait de foot. En tirant, vous vous êtes cassé la cheville.
           (-3 endurance)
         </Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.choiceCard} onPress={handleChoice2}>
         <Text style={styles.choiceOption}>
-          2) Rester concentré sur les ressources
+          2: Rester concentré sur les ressources
         </Text>
       </TouchableOpacity>
     </View>

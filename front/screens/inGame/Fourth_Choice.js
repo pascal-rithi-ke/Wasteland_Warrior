@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 
-const FourthChoice = ({ handleChoice1, handleChoice2, handleChoice3 }) => {
+const Fourth_Choice = ({ handleChoice1, handleChoice2, handleChoice3 }) => {
   return (
     <View style={styles.container}>
       <Image source={require('../../assets/game/menacing_bandits.png')} style={styles.image} />
@@ -13,18 +13,18 @@ const FourthChoice = ({ handleChoice1, handleChoice2, handleChoice3 }) => {
       </Text>
       <TouchableOpacity style={styles.choiceCard} onPress={handleChoice1}>
         <Text style={styles.choiceOption}>
-          1) Les attaquer
+          1: Les attaquer
           -3 de santé
         </Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.choiceCard} onPress={handleChoice2}>
         <Text style={styles.choiceOption}>
-          2) Tenter de les raisonner (nécessite 5 de charisme)
+          2: Tenter de les raisonner (nécessite 5 de charisme)
         </Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.choiceCard} onPress={handleChoice3}>
         <Text style={styles.choiceOption}>
-          3) Attaquer avec votre compagnon à 4 pattes
+          3: Attaquer avec votre compagnon à 4 pattes
           +2 de force
           +Récupérer la clé
         </Text>
@@ -98,4 +98,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default FourthChoice;
+export default Fourth_Choice;
