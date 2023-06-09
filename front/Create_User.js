@@ -5,14 +5,16 @@ import { useNavigation } from '@react-navigation/native';
 
 const LoginForm = () => {
     const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    
     const [erreur, setErreur] = useState('');
 
     const navigation = useNavigation();
 
     const handleLogin = async () => {
         try {
-            if (email === '' || password === '') {
+            if (email === '' || password === ''|| username === '') {
                 setErreur('Veuillez remplir tous les champs !');
                 return;
             }
@@ -25,13 +27,15 @@ const LoginForm = () => {
                 return;
             } else {
                 const response = await axios.post(
-                    'https://5467-130-180-217-66.ngrok-free.app/login',
+                    'https://5467-130-180-217-66.ngrok-free.app/InsertUser',
                     {
                         email,
+                        username,
                         password,
                     }
                 );
                 setEmail('');
+                setUsername('');
                 setPassword('');
                 setErreur('');
                 navigation.navigate('Toutes les histoires');
@@ -53,6 +57,12 @@ const LoginForm = () => {
                 placeholder="Email"
                 value={email}
                 onChangeText={(text) => setEmail(text)}
+            />
+            <TextInput
+                style={styles.input}
+                placeholder="Nom d'utilisateur"
+                value={username}
+                onChangeText={(text) => setUsername(text)}
             />
             <TextInput
                 style={styles.input}
