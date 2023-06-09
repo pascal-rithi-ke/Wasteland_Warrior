@@ -90,7 +90,7 @@ const Caracteristiques = ({ onUpdateCaracteristiques }) => {
   return (
     <View style={styles.container}>
       <View style={styles.textContainer}>
-        <Text style={styles.h1}>CHOISISSEZ VOS STATISTIQUES</Text>
+        <Text style={styles.h1}>CHOISISSEZ VOS CARACTÉRISTIQUES</Text>
         <Text style={styles.pointsRestantsText}>Points restants : {pointsRestants}</Text>
       </View>
       <View style={styles.caracteristiqueContainer}>
@@ -215,19 +215,21 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   button: {
-    backgroundColor: '#FFFFFF',
     borderRadius: 20,
     padding: 10,
     marginHorizontal: 5,
+    backgroundColor: '#0e8210',
+    borderColor: '#14f819',
+    borderWidth: 3,
   },
   buttonText: {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     width: 50,
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: 'bold',
-    color: '#000000',
+    color: '#FFF',
   },
   saveButton: {
     backgroundColor: '#FFFFFF',

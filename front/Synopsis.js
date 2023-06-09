@@ -55,15 +55,19 @@ const styles = StyleSheet.create({
     paddingRight: 30,
   },
   button: {
-    backgroundColor: '#FFFFFF',
     borderRadius: 30,
     paddingVertical: 12,
     paddingHorizontal: 24,
+    backgroundColor: '#0e8210',
+    color: '#FFFFFF',
+    borderColor: '#14f819',
+    borderWidth: 3,
   },
   buttonText: {
-    fontSize: 16,
+    fontSize: 20,
     fontWeight: 'bold',
-    color: '#000000',
+    color: '#FFF',
+    fontFamily: 'monospace',
   },
 });
 
