@@ -13,7 +13,7 @@ function HomeScreen({ route }) {
   const navigation = useNavigation();
 
   const handleDeleteAccount = async () => {
-    if (statut === 'player') {
+    if (statut == 'player') {
       try {
         const searchUser = await axios.get(`https://5467-130-180-217-66.ngrok-free.app/SearchUser/${email}/${username}`);
         const user = searchUser.data.results; 
@@ -66,7 +66,7 @@ function HomeScreen({ route }) {
           <Text style={styles.error}>{errorMessage}</Text>
         )}
 
-        {statut==="player" && (
+        {statut ==="player" && (
         <TouchableOpacity style={styles.btnStart} onPress={() => navigation.navigate('Synopsis')}>
           <Text style={styles.text}>Jouer</Text>
         </TouchableOpacity>
@@ -82,7 +82,7 @@ function HomeScreen({ route }) {
           </TouchableOpacity>
         )}
 
-        {email || username && (
+          {statut === 'player' && (
           <TouchableOpacity style={styles.btnStart} onPress={handleDeleteAccount}>
             <Text style={styles.text}>Supprimer le compte</Text>
           </TouchableOpacity>
@@ -101,13 +101,14 @@ function HomeScreen({ route }) {
         )}
 
 
-        {email || username && (
+        {email && username && statut && (
         <TouchableOpacity style={styles.btnStart} onPress={handleLogout}>
           <Text style={styles.text}>Déconnexion</Text>
         </TouchableOpacity>
         )}
         
         {username && <Text style={styles.text}>Username: {username}</Text>}
+        {email && <Text style={styles.text}>Email: {email}</Text>}
         <Text style={{color:"white"}}>{statut}</Text>
       </ImageBackground>
     </View>

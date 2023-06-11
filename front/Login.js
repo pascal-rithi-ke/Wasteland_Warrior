@@ -21,7 +21,7 @@ const Login = () => {
       setUser(user);
       // Naviguer vers la page d'accueil
       if(user !== ""){
-        navigation.navigate('Home', { username: user.username, statut: user.statut});
+        navigation.navigate('Home', { username: user.username, statut: user.statut, email: user.email});
       }
       // Vider le message d'erreur
       setMessage('');
