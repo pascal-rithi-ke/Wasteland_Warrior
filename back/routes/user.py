@@ -83,27 +83,38 @@ def DeleteUserById(id):
 @user_bp.route("/InsertUser", methods=['POST'])
 def InsertUser():
     # Récupérer les données de l'utilisateur à partir de la requête JSON
-    user_data = request.json
-
-    # Crypter le mot de passe
-    password = user_data.get('password')
-    hashed_password = bcrypt.hashpw(
-        password.encode('utf-8'), bcrypt.gensalt(10))
-
-    # Mettre à jour les données de l'utilisateur avec le mot de passe crypté
-    user_data['password'] = hashed_password.decode('utf-8')
+    user_data = request.get_json()
 
     mycol = get_mongo_collection_user()
+
+    # Rechercher l'utilisateur dans la collection
+    SearchUser = mycol.find_one({"email": user_data.get('email'), "username": user_data.get('username')})
+    if SearchUser:
+        response = jsonify({'error': 'User already exists', 'message': "Une adresse mail est déjà associé", 'results': 'existed'})
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        return response
+    
+    # Inserrer les données de l'utilisateur dans la collection
+    password = user_data.get('password') # Récupérer le mot de passe
+    if not password:
+        response = jsonify({'error': 'Missing password', 'message': 'User not inserted'})
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        return response
+    
+    hashed_password = bcrypt.hashpw(
+        password.encode('utf-8'), bcrypt.gensalt(10))  # Crypter le mot de passe
+    
+    # Mettre à jour les données de l'utilisateur avec le mot de passe crypté
+    user_data['password'] = hashed_password.decode('utf-8')
+        
     # Insérer les données de l'utilisateur dans la collection
     result = mycol.insert_one(user_data)
-
     if result:
         # Convertir l'ObjectId en une chaîne de caractères
         user_data['_id'] = str(result.inserted_id)
-
-    response = jsonify({'results': user_data})
-    response.headers.add("Access-Control-Allow-Origin", "*")
-    return response
+        response = jsonify({'results': user_data})
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        return response
 
 
 @user_bp.route("/UpdateUserById/<id>", methods=['PUT'])

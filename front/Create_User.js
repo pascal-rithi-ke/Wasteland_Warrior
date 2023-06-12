@@ -7,44 +7,49 @@ const LoginForm = () => {
     const [email, setEmail] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    
+
     const [erreur, setErreur] = useState('');
 
     const navigation = useNavigation();
 
     const handleLogin = async () => {
         try {
-            if (email === '' || password === ''|| username === '') {
+            if (email === '' || password === '' || username === '') {
                 setErreur('Veuillez remplir tous les champs !');
                 return;
-            }
-            else if (password.length < 6) {
+            } else if (password.length < 6) {
                 setErreur('Le mot de passe doit contenir au moins 6 caractères !');
                 return;
-            }
-            else if (!email.includes('@')) {
+            } else if (!email.includes('@')) {
                 setErreur('Veuillez entrer une adresse email valide !');
                 return;
             } else {
-                const response = await axios.post(
-                    'https://5467-130-180-217-66.ngrok-free.app/InsertUser',
-                    {
-                        email,
-                        username,
-                        password,
-                        statut: 'player',
-                    }
-                );
-                setEmail('');
-                setUsername('');
-                setPassword('');
-                setErreur('');
-                navigation.navigate('Home', {email, username, statut: 'player'});
+                const response = await axios.post('http://10.0.0.23/InsertUser', {
+                    email,
+                    username,
+                    password,
+                    statut: 'player',
+                });
+                if (response.data.results === 'existed') {
+                    setErreur(response.data.message);
+                }
+                else {
+                    Alert.alert(
+                        'Information',
+                        'Votre compte a bien été créé !',
+                        [
+                            {
+                                text: 'OK',
+                                onPress: () => navigation.navigate('Connexion'),
+                            },
+                        ],
+                    );
+                }
             }
         } catch (error) {
             setErreur(error.message);
         }
-    }
+    };
 
     const signIn = () => {
         navigation.navigate('Connexion');
