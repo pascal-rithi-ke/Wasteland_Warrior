@@ -12,7 +12,7 @@ function GetAllHistoire(){
     const [erreur, setErreur] = useState('');
 
     useEffect(() => {
-        axios.get('https://5467-130-180-217-66.ngrok-free.app/getAllHistoire')
+        axios.get('http://10.0.0.3/getAllHistoire')
             .then((response) => {
                 setData(response.data.results);
             })

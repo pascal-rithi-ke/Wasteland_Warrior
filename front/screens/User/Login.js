@@ -16,7 +16,7 @@ const Login = () => {
   const handleLogin = async () => {
     try {
       // Envoyer les données de connexion à l'API
-      const response = await axios.post('https://5467-130-180-217-66.ngrok-free.app/Login', { username, password });
+      const response = await axios.post('http://10.0.0.3/Login', { username, password });
       const user = response.data.results;
       setUser(user);
       // Naviguer vers la page d'accueil

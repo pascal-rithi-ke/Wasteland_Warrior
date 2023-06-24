@@ -1,25 +1,23 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
+// Home screen - main menu
 import HomeScreen from './screens/HomeScreen';
+import Regles from './screens/Regles';
+
+// User screens
+import Create_User from './screens/User/Create_User';
+import Login from './screens/User/Login';
+
+// inGame screens - Game
+import Synopsis from './screens/inGame/Synopsis';
+
 import GameScreen from './screens/inGame/GameScreen';
-
-import Synopsis from './Synopsis';
-
-import Choix_Hero from './Choix_Hero';
-
-import Caracteristiques from './Caracteristiques';
+import Choix_Hero from './screens/inGame/Choix_Hero';
+import Caracteristiques from './screens/inGame/Caracteristiques';
 
 import ContinueGame from './screens/inGame/ContinueGame';
 import Start_Game from './screens/inGame/Start_Game';
-
-import Create_User from './Create_User';
-import Login from './Login';
-
-import Add_Histoire from './screens/Histoire/Form_Histoire/Add_Histoire';
-import GetAllHistoire from './screens/Histoire/GetAllHistoire';
-import GetHistoire from './screens/Histoire/GetHistoire';
-import Update_Histoire from './screens/Histoire/Form_Histoire/Update_Histoire';
 
 import Second_Choice from './screens/inGame/Second_Choice';
 import Third_Choice from './screens/inGame/Third_Choice';
@@ -37,11 +35,14 @@ import HelpWoman from './screens/inGame/HelpWoman';
 
 import GameOver from './screens/inGame/GameOver';
 
-import Regles from './screens/Regles';
+// Histoire screens - Admin console
+import Add_Histoire from './screens/Histoire/Form_Histoire/Add_Histoire';
+import GetAllHistoire from './screens/Histoire/GetAllHistoire';
+import GetHistoire from './screens/Histoire/GetHistoire';
+import Update_Histoire from './screens/Histoire/Form_Histoire/Update_Histoire';
+
 
 const Stack = createNativeStackNavigator();
-
-
 export default function App() {
   return (
     <NavigationContainer>

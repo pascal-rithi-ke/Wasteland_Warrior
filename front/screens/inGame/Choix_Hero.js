@@ -13,13 +13,13 @@ const Choix_Hero = () => {
     <View style={styles.container}>
       <TouchableOpacity onPress={() => selectHero('homme')}>
         <View style={styles.heroContainer}>
-          <Image source={require('./assets/game/avatar_homme.png')} style={styles.heroImage} />
+          <Image source={require('../../assets/game/avatar_homme.png')} style={styles.heroImage} />
           <Text style={styles.heroText}>Homme</Text>
         </View>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => selectHero('femme')}>
         <View style={styles.heroContainer}>
-          <Image source={require('./assets/game/avatar_femme.png')} style={styles.heroImage} />
+          <Image source={require('../../assets/game/avatar_femme.png')} style={styles.heroImage} />
           <Text style={styles.heroText}>Femme</Text>
         </View>
       </TouchableOpacity>

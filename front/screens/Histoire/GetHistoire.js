@@ -10,7 +10,7 @@ function GetHistoire({ route, navigation }) {
 
 
     useEffect(() => {
-        axios.get(`https://5467-130-180-217-66.ngrok-free.app/getHistoireById/${_id}`, {
+        axios.get(`http://10.0.0.3/getHistoireById/${_id}`, {
         })
             .then((response) => {
                 setData(response.data.results);
@@ -28,7 +28,7 @@ function GetHistoire({ route, navigation }) {
                 {
                     text: "Supprimer",
                     onPress: () => {
-                        axios.delete(`https://5467-130-180-217-66.ngrok-free.app/deleteHistoireById/${_id}`, {
+                        axios.delete(`http://10.0.0.3/deleteHistoireById/${_id}`, {
                         })
                             .then((response) => {
                                 setData(response.data.results);
