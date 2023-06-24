@@ -47,20 +47,22 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        
+        {/* Home screen - main menu */}
         <Stack.Screen name="Home" component={HomeScreen} options={{headerShown:false}}/>
-        <Stack.Screen name="Game" component={GameScreen} options={{headerShown:false}} />
+        <Stack.Screen name="Règles" component={Regles} />
 
-        <Stack.Screen name="Synopsis" component={Synopsis} options={{headerShown:false}} />
-
-        <Stack.Screen name="Choix_Hero" component={Choix_Hero} options={{headerShown:false}} />
-        
-        <Stack.Screen name="Caracteristiques" component={Caracteristiques} options={{headerShown:false}} />
-        
+        {/* User screens */}
         <Stack.Screen name="Inscription" component={Create_User} options={{headerShown:false}} />
         <Stack.Screen name="Connexion" component={Login} options={{headerShown:false}} />
+
+        {/* inGame screens - Game */}
+        <Stack.Screen name="Synopsis" component={Synopsis} options={{headerShown:false}} />
+
+        <Stack.Screen name="Game" component={GameScreen} options={{headerShown:false}} />
+        <Stack.Screen name="Choix_Hero" component={Choix_Hero} options={{headerShown:false}} />
+        <Stack.Screen name="Caracteristiques" component={Caracteristiques} options={{headerShown:false}} />
         
-        <Stack.Screen name="ContinueGame" component={ContinueGame} options={{headerShown:false}} />
+        <Stack.Screen name="ContinueGame" component={ContinueGame} options={{headerShown:false}} />      
         <Stack.Screen name="Start_Game" component={Start_Game} options={{headerShown:false}} />
         
         <Stack.Screen name="Second_Choice" component={Second_Choice} options={{headerShown:false}} />
@@ -77,14 +79,14 @@ export default function App() {
         <Stack.Screen name="Reason" component={Reason} options={{headerShown:false}} />
         <Stack.Screen name="HelpWoman" component={HelpWoman} options={{headerShown:false}} />
         
+        <Stack.Screen name="GameOver" component={GameOver} options={{headerShown:false}} />
+
+        {/* Histoire screens - Admin console */}
         <Stack.Screen name="Ajouter histoire" component={Add_Histoire}/>
         <Stack.Screen name="Modifier l'histoire" component={Update_Histoire}/>
         <Stack.Screen name="Toutes les histoires" component={GetAllHistoire} />
         <Stack.Screen name="Histoire" component={GetHistoire}/>
 
-        <Stack.Screen name="GameOver" component={GameOver} options={{headerShown:false}} />
-
-        <Stack.Screen name="Règles" component={Regles} />
       </Stack.Navigator>
     </NavigationContainer>
   );
