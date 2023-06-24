@@ -47,6 +47,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+        
         {/* Home screen - main menu */}
         <Stack.Screen name="Home" component={HomeScreen} options={{headerShown:false}}/>
         <Stack.Screen name="Règles" component={Regles} />
