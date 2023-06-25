@@ -2,12 +2,17 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Button } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-const Caracteristiques = ({ onUpdateCaracteristiques }) => {
+import axios from 'axios';
+
+const Caracteristiques = ({route}) => {
+  const {_id, hero} = route.params || {};
+
   const [force, setForce] = useState(3);
   const [charisme, setCharisme] = useState(3);
   const [endurance, setEndurance] = useState(3);
   const [sante, setSante] = useState(3);
   const [pointsRestants, setPointsRestants] = useState(5);
+
   const navigation = useNavigation();
 
   const moreForce = () => {
@@ -65,19 +70,6 @@ const Caracteristiques = ({ onUpdateCaracteristiques }) => {
       setPointsRestants((prevPoints) => prevPoints + 1);
     }
   }
-
-  // const handleSaveCaracteristiques = () => {
-  //   const caracteristiques = {
-  //     force,
-  //     charisme,
-  //     endurance,
-  //     sante,
-  //   };
-  // }
-
-  const toStartGame = () => {
-    navigation.navigate('Start_Game');
-  }
     
   const randomCaracteristiques = () => {
 
@@ -115,21 +107,23 @@ const Caracteristiques = ({ onUpdateCaracteristiques }) => {
 
   }
 
-  const handleSaveCaracteristiques = () => {
-    const caracteristiques = {
-      force,
-      charisme,
-      endurance,
-      sante,
-    };
-    onUpdateCaracteristiques(caracteristiques);
+  const handleCreateGame = async () => {
+    try {
+      const response = await axios.post('http://10.0.0.3:80/createPartie', {
+        id_user: _id,
+        hero,
+        characteristics: {
+          force,
+          charisme,
+          endurance,
+          sante,
+        },
+      });
+      navigation.navigate('GameMaps', { id_partie: response.data._id, id_user: _id, hero, force, charisme, endurance, sante });
+    } catch (error) {
+      console.log(error);
+    }
   };
-
-
-  //   onUpdateCaracteristiques(caracteristiques);
-  //   navigation.navigate('Start_Game');
-  
-  // };
 
   return (
     <View style={styles.container}>
@@ -162,8 +156,7 @@ const Caracteristiques = ({ onUpdateCaracteristiques }) => {
           <TouchableOpacity
             style={styles.button}
             onPress={moreCharisme}
-            disabled={pointsRestants === 0 || charisme === 7}
-          >
+            disabled={pointsRestants === 0 || charisme === 7}>
             <Text style={styles.buttonText}>+</Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -216,9 +209,10 @@ const Caracteristiques = ({ onUpdateCaracteristiques }) => {
       <TouchableOpacity style={styles.randomButton} onPress={randomCaracteristiques}>
         <Text style={styles.randomButtonText}>Aléatoire</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.saveButton} onPress={toStartGame}>
+      <TouchableOpacity style={styles.saveButton} onPress={handleCreateGame}>
         <Text style={styles.saveButtonText}>Enregistrer</Text>
       </TouchableOpacity>
+
     </View>
   );
 };

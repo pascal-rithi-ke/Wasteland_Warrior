@@ -2,11 +2,19 @@ import React from 'react';
 import { View, Image, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-const Choix_Hero = () => {
+const Choix_Hero = ({route}) => {
+  const {_id} = route.params || {};
+
   const navigation = useNavigation();
 
   const selectHero = (hero) => {
-    navigation.navigate('Caracteristiques', { hero });
+    if(hero === 'homme') {
+      hero = 'male';
+    }
+    if(hero === 'femme') {
+      hero = 'female';
+    }
+    navigation.navigate('Caracteristiques', {_id, hero});
   };
 
   return (

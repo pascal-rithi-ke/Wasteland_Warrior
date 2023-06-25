@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 function HomeScreen({ route }) {
-  const { email, username, statut } = route.params || {};
+  const { email, username, statut, _id } = route.params || {};
   
   let [user] = useState({});
   const [errorMessage, setErrorMessage] = useState('');
@@ -67,7 +67,7 @@ function HomeScreen({ route }) {
         )}
 
         {statut ==="player" && (
-        <TouchableOpacity style={styles.btnStart} onPress={() => navigation.navigate('Synopsis')}>
+        <TouchableOpacity style={styles.btnStart} onPress={() => navigation.navigate('Synopsis', {_id})}>
           <Text style={styles.text}>Jouer</Text>
         </TouchableOpacity>
         )}

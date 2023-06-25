@@ -1,14 +1,16 @@
 import React from 'react';
 import { View, Text, StyleSheet, ImageBackground, TouchableOpacity } from 'react-native';
 
-const Synopsis = ({ navigation }) => {
+const Synopsis = ({ route, navigation }) => {
+  const { _id} = route.params || {};
+
   const handleNext = () => {
-    navigation.navigate('Choix_Hero');
+    navigation.navigate('Choix_Hero', {_id});
   };
 
   return (
       <View style={styles.container}>
-        <ImageBackground source={require('./assets/fond.png')} resizeMode="cover" style={styles.background}>
+        <ImageBackground source={require('../../assets/fond.png')} resizeMode="cover" style={styles.background}>
           <Text style={styles.title}>Synopsis du jeu</Text>
           <Text style={styles.description}>
             Vous êtes l'un des rares survivants d'une guerre nucléaire dévastatrice qui a plongé le monde dans le chaos. Alors que la civilisation s'effondre, vous émergez de votre abri souterrain dans une ville en ruines, à la recherche de nourriture et de ressources. Votre mission est de survivre dans ce monde post-apocalyptique hostile en prenant des décisions cruciales et en affrontant des défis mortels.
