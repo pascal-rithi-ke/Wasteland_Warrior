@@ -27,7 +27,7 @@ function Add_Histoire() {
                 return;
             }
             else{
-            const response = await axios.post('http://10.0.0.3/addHistoire', {
+            const response = await axios.post('http://192.168.1.25/addHistoire', {
                 title,
                 chapitre: convertChapitre
             });

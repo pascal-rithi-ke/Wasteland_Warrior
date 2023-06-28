@@ -19,7 +19,8 @@ def create_partie():
             "charisme": data['characteristics']['charisme'],
             "endurance": data['characteristics']['endurance'],
             "sante": data['characteristics']['sante']
-        }
+        },
+        "statut": data['statut']
     })
     response = jsonify({'results': data})
     response.headers.add("Access-Control-Allow-Origin", "*")

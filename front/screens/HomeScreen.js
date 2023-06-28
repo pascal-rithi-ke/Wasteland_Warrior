@@ -15,7 +15,7 @@ function HomeScreen({ route }) {
   const handleDeleteAccount = async () => {
     if (statut == 'player') {
       try {
-        const searchUser = await axios.get(`http://10.0.0.3/SearchUser/${email}/${username}`);
+        const searchUser = await axios.get(`http://192.168.1.25/SearchUser/${email}/${username}`);
         const user = searchUser.data.results; 
         if(user){
           Alert.alert(
@@ -31,7 +31,7 @@ function HomeScreen({ route }) {
                 text: "Supprimer",
                 onPress: async () => {
                   try {
-                    await axios.delete(`http://10.0.0.3/DeleteUserById/${user._id}`);
+                    await axios.delete(`http://192.168.1.25/DeleteUserById/${user._id}`);
                     navigation.navigate('Home');
                     setErrorMessage('');
                   } catch (error) {

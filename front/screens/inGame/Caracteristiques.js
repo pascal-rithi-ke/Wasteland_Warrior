@@ -109,7 +109,7 @@ const Caracteristiques = ({route}) => {
 
   const handleCreateGame = async () => {
     try {
-      const response = await axios.post('http://10.0.0.3:80/createPartie', {
+      const response = await axios.post('http://192.168.1.25:80/createPartie', {
         id_user: _id,
         hero,
         characteristics: {
@@ -118,6 +118,7 @@ const Caracteristiques = ({route}) => {
           endurance,
           sante,
         },
+        statut: 'en cours'
       });
       navigation.navigate('GameMaps', { id_partie: response.data._id, id_user: _id, hero, force, charisme, endurance, sante });
     } catch (error) {

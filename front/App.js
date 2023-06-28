@@ -33,6 +33,8 @@ import FightWithDog from './screens/inGame/FightWithDog';
 import Reason from './screens/inGame/Reason';
 import HelpWoman from './screens/inGame/HelpWoman';
 
+import GameMaps from './screens/inGame/GameMaps.js';
+
 import GameOver from './screens/inGame/GameOver';
 
 // Histoire screens - Admin console
@@ -80,6 +82,8 @@ export default function App() {
         <Stack.Screen name="Reason" component={Reason} options={{headerShown:false}} />
         <Stack.Screen name="HelpWoman" component={HelpWoman} options={{headerShown:false}} />
         
+        <Stack.Screen name="GameMaps" component={GameMaps} options={{headerShown:false}} />
+
         <Stack.Screen name="GameOver" component={GameOver} options={{headerShown:false}} />
 
         {/* Histoire screens - Admin console */}
