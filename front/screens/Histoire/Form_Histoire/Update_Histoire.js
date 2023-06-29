@@ -15,7 +15,7 @@ function Update_Histoire({ route }) {
     const navigation = useNavigation();
 
     useEffect(() => {
-        axios.get(`http://192.168.1.25/getHistoireById/${_id}`, {
+        axios.get(`http://10.0.0.3/getHistoireById/${_id}`, {
         })
             .then((response) => {
                 const { title, chapitre } = response.data.results;
@@ -40,7 +40,7 @@ function Update_Histoire({ route }) {
                 return;
             } else {
                 const response = await axios.put(
-                    `http://192.168.1.25/updateHistoireById/${_id}`,
+                    `http://10.0.0.3/updateHistoireById/${_id}`,
                     {
                         title,
                         chapitre,

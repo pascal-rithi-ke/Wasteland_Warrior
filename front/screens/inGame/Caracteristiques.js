@@ -109,7 +109,7 @@ const Caracteristiques = ({route}) => {
 
   const handleCreateGame = async () => {
     try {
-      const response = await axios.post('http://192.168.1.25:80/createPartie', {
+      const response = await axios.post('http://10.0.0.3:80/createPartie', {
         id_user: _id,
         hero,
         characteristics: {

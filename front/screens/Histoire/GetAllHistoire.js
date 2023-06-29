@@ -12,7 +12,7 @@ function GetAllHistoire(){
     const [erreur, setErreur] = useState('');
 
     useEffect(() => {
-        axios.get('http://192.168.1.25/getAllHistoire')
+        axios.get('http://10.0.0.3/getAllHistoire')
             .then((response) => {
                 setData(response.data.results);
             })

@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Image, TouchableOpacity, StyleSheet, Text } from 'react-native';
+import { View, Image, TouchableOpacity, StyleSheet, Text, Alert } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
 
-function GameMaps({ route }) {
-    const {_id, hero, force, charisme, endurance, sante} = route.params || {};
+function GameMaps({ route, navigation }) {
+    const { _id, hero, force, charisme, endurance, sante } = route.params || {};
 
     let getImgHero;
     if (hero === 'male') {
@@ -28,41 +28,54 @@ function GameMaps({ route }) {
         })();
     }, []);
 
-    // Dézoomer la carte
-    const zoomOut = () => {
-        mapRef.current.animateToRegion({
-            latitude: location.latitude,
-            longitude: location.longitude,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421,
-        });
-    };
+    // Ajoutez ces deux lignes pour gérer le niveau de zoom
+    const [latitudeDelta, setLatitudeDelta] = useState(0.0922);
+    const [longitudeDelta, setLongitudeDelta] = useState(0.0421);
 
-    // Zoomer la carte
     const zoomIn = () => {
-        mapRef.current.animateToRegion({
-            latitude: location.latitude,
-            longitude: location.longitude,
-            latitudeDelta: 0.000922,
-            longitudeDelta: 0.000421,
-        });
+        setLatitudeDelta(prevLatitudeDelta => prevLatitudeDelta * 0.09);
+        setLongitudeDelta(prevLongitudeDelta => prevLongitudeDelta * 0.09);
     };
 
+    const zoomOut = () => {
+        setLatitudeDelta(prevLatitudeDelta => prevLatitudeDelta * 5);
+        setLongitudeDelta(prevLongitudeDelta => prevLongitudeDelta * 5);
+    };
+
+    useEffect(() => {
+        if (location) {
+            mapRef.current.animateToRegion({
+                latitude: location.latitude,
+                longitude: location.longitude,
+                latitudeDelta: latitudeDelta,
+                longitudeDelta: longitudeDelta,
+            });
+        }
+    }, [latitudeDelta, longitudeDelta]);
+
+    const [showStartButton, setShowStartButton] = useState(false);
+    const handleShowStartButton = () => {
+        setShowStartButton(!showStartButton);
+    };
+    const handleStartHistory = () => {
+        setShowStartButton(false);
+        navigation.navigate('Start_Game', { _id, hero, force, charisme, endurance, sante });
+    };
 
     return (
         <View style={styles.container}>
             {location && (
+                <>
                     <MapView
                         ref={mapRef} // Ajoutez cette ligne pour lier la référence à votre MapView
                         style={styles.map}
+                        userInterfaceStyle="dark"
                         initialRegion={{
                             latitude: location.latitude,
                             longitude: location.longitude,
                             latitudeDelta: 0.0922,
                             longitudeDelta: 0.0421,
-                            userInterfaceStyle: 'dark',
-                        }}
-                    >
+                        }}>
                         <Marker
                             coordinate={{
                                 latitude: location.latitude,
@@ -71,20 +84,40 @@ function GameMaps({ route }) {
                             title="Vous êtes ici"
                             description="Votre position actuelle"
                         />
-
+                        <Marker
+                            coordinate={{ latitude: 37.786694, longitude: -122.407314 }}
+                            onPress={handleShowStartButton}
+                            title="Le monde d'aujourd'hui">
+                            <View style={styles.markerContainer}>
+                                <View style={styles.marker}>
+                                    <Text style={styles.markerText}>Chapitre 1</Text>
+                                </View>
+                            </View>
+                        </Marker>
+                    </MapView>
+                    {showStartButton && (
+                        <TouchableOpacity style={styles.markerStart_histoire} onPress={handleStartHistory}>
+                            <Text style={styles.markerStart_btn}>Commencer</Text>
+                        </TouchableOpacity>
+                    )}
                     <View style={styles.infoPerso}>
-                        <View>
-                            <Image source={getImgHero} style={{ width: 100, height: 100 }} />
+                        <Image source={getImgHero} style={styles.heroImg} />
+                        <View style={styles.container_stat}>
+                            <Text style={styles.stat}>Force : {force}</Text>
+                            <Text style={styles.stat}>Charisme : {charisme}</Text>
+                            <Text style={styles.stat}>Endurance : {endurance}</Text>
+                            <Text style={styles.stat}>Santé : {sante}</Text>
                         </View>
-                        <View>
-                            <Text style={{ fontSize: 20 }}>Force: {force}</Text>
-                            <Text style={{ fontSize: 20 }}>Charisme: {charisme}</Text>
-                            <Text style={{ fontSize: 20 }}>Endurance: {endurance}</Text>
-                            <Text style={{ fontSize: 20 }}>Santé: {sante}</Text>
+                        <View style={styles.container_zoom}>
+                            <TouchableOpacity style={styles.zoom_btn} onPress={zoomIn}>
+                                <Text style={styles.zoom_text}>(+) Zoom Map</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.zoom_btn} onPress={zoomOut}>
+                                <Text style={styles.zoom_text}>(-) Zoom Map</Text>
+                            </TouchableOpacity>
                         </View>
                     </View>
-
-                    </MapView>
+                </>
             )}
         </View>
     );
@@ -103,7 +136,72 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
         alignItems: 'center',
         backgroundColor: 'rgba(0, 0, 0, 0.8)',
+        padding: 10,
     },
+    heroImg: {
+        width: 100,
+        height: 100,
+    },
+
+    markerContainer: {
+        display: 'flex',
+        alignItems: 'center',
+    },
+    marker: {
+        backgroundColor: '#000000',
+        opacity: 0.8,
+        padding: 5,
+        borderRadius: 10,
+    },
+    markerText: {
+        color: '#FFFFFF',
+        fontSize: 18,
+        fontWeight: 'bold',
+    },
+
+    markerStart_histoire: {
+        backgroundColor: '#000000',
+        padding: 5,
+        textAlign: 'center',
+    },
+    markerStart_btn: {
+        color: '#FFFFFF',
+        fontSize: 18,
+        fontWeight: 'bold',
+        textAlign: 'center',
+    },
+
+    container_stat: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-around',
+        paddingRight: 5,
+    },
+    stat: {
+        color: '#FFFFFF',
+        fontSize: 18,
+        fontWeight: 'bold',
+    },
+
+    container_zoom: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-around',
+        paddingLeft: 10,
+        borderLeftWidth: 2,
+        borderLeftColor: '#FFFFFF',
+    },
+    zoom_btn: {
+        backgroundColor: '#000000',
+        padding: 5,
+        borderRadius: 10,
+        marginBottom: 10,
+    },
+    zoom_text: {
+        color: '#FFFFFF',
+        fontSize: 18,
+        fontWeight: 'bold',
+    }
 });
 
 export default GameMaps;
