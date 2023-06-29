@@ -48,7 +48,8 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator
+        ScreenOptions={{gestureEnabled: false}}>
         
         {/* Home screen - main menu */}
         <Stack.Screen name="Home" component={HomeScreen} options={{headerShown:false}}/>
