@@ -3,7 +3,9 @@ import bcrypt
 from flask import Blueprint, request, jsonify
 from bson import json_util
 from bson.objectid import ObjectId
+
 from service.mongo import get_mongo_collection_user
+from service.mongo import get_mongo_collection_historique_partie
 
 user_bp = Blueprint('user_bp', __name__)
 
@@ -141,16 +143,38 @@ def Login():
     mycol = get_mongo_collection_user()
     # Rechercher l'utilisateur dans la collection
     user = mycol.find_one({"username": username})
-
+    
+    # Rechercher la partie d'un utilisateur si elle est déjà en cours
+    mycol_historique_partie = get_mongo_collection_historique_partie()
+    
     if user:
-    # Vérifier le mot de passe
+        # Vérifier le mot de passe
         if bcrypt.checkpw(password.encode('utf-8'), user['password'].encode('utf-8')):
             user['_id'] = str(user['_id'])
-            response = jsonify({'results': user})
+            
+            # Rechercher la partie en cours pour l'utilisateur
+            convert_user_id = ObjectId(user['_id'])
+            historique_partie = mycol_historique_partie.find_one({"id_user": convert_user_id, "game_statut": "en cours"})
+
+            if historique_partie:
+                historique_partie['_id'] = str(historique_partie['_id'])
+                historique_partie['id_user'] = str(historique_partie['id_user'])
+                user['historique_partie'] = historique_partie
+                # Retourner la réponse avec les informations de l'utilisateur
+                response = jsonify({'results': user})
+                response.headers.add("Access-Control-Allow-Origin", "*")
+                return response
+            else:
+                # Retourner la réponse avec les informations de l'utilisateur
+                response = jsonify({'results': user})
+                response.headers.add("Access-Control-Allow-Origin", "*")
+                return response
+            
         else:
-            response = jsonify({'results': None})
+            response = jsonify({'error': 'Incorrect password', 'message': 'User not found'})
+            response.headers.add("Access-Control-Allow-Origin", "*")
+            return response
     else:
-        response = jsonify({'results': None})
-        
-    response.headers.add("Access-Control-Allow-Origin", "*")
-    return response
+        response = jsonify({'error': 'User not found', 'message': 'User not found'})
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        return response

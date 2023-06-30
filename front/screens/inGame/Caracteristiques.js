@@ -5,7 +5,9 @@ import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 
 const Caracteristiques = ({route}) => {
-  const {_id, hero} = route.params || {};
+  const {_id, hero, email, username, statut} = route.params || {};
+
+  const game_statut = 'en cours';
 
   const [force, setForce] = useState(3);
   const [charisme, setCharisme] = useState(3);
@@ -118,9 +120,10 @@ const Caracteristiques = ({route}) => {
           endurance,
           sante,
         },
-        statut: 'en cours'
+        game_statut: game_statut
       });
-      navigation.navigate('GameMaps', { id_partie: response.data._id, id_user: _id, hero, force, charisme, endurance, sante });
+      console.log(response.data);
+      navigation.navigate('GameMaps', { id_partie: response.data._id, id_user: _id, hero, force, charisme, endurance, sante, game_statut: game_statut, email, username, statut});
     } catch (error) {
       console.log(error);
     }
@@ -213,7 +216,6 @@ const Caracteristiques = ({route}) => {
       <TouchableOpacity style={styles.saveButton} onPress={handleCreateGame}>
         <Text style={styles.saveButtonText}>Enregistrer</Text>
       </TouchableOpacity>
-
     </View>
   );
 };

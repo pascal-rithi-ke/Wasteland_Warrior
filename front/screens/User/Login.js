@@ -16,12 +16,12 @@ const Login = () => {
   const handleLogin = async () => {
     try {
       // Envoyer les données de connexion à l'API
-      const response = await axios.post('http://10.0.0.3/Login', { username, password });
+      const response = await axios.post('http://10.0.0.3:80/Login', { username, password });
       const user = response.data.results;
       setUser(user);
       // Naviguer vers la page d'accueil
       if(user !== ""){
-        navigation.navigate('Home', {_id: user._id, username: user.username, statut: user.statut, email: user.email});
+        navigation.navigate('Home', {_id: user._id, username: user.username, statut: user.statut, email: user.email, historique_partie: user.historique_partie});
       }
       // Vider le message d'erreur
       setMessage('');

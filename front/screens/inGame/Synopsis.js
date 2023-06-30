@@ -2,10 +2,10 @@ import React from 'react';
 import { View, Text, StyleSheet, ImageBackground, TouchableOpacity } from 'react-native';
 
 const Synopsis = ({ route, navigation }) => {
-  const { _id} = route.params || {};
+  const { _id, email, username, statut} = route.params || {};
 
   const handleNext = () => {
-    navigation.navigate('Choix_Hero', {_id});
+    navigation.navigate('Choix_Hero', {_id, email, username, statut});
   };
 
   return (

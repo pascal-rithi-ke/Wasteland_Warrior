@@ -24,7 +24,7 @@ const LoginForm = () => {
                 setErreur('Veuillez entrer une adresse email valide !');
                 return;
             } else {
-                const response = await axios.post('http://10.0.0.3/InsertUser', {
+                const response = await axios.post('http://10.0.0.3:80/InsertUser', {
                     email,
                     username,
                     password,

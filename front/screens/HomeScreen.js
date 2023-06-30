@@ -6,16 +6,23 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 function HomeScreen({ route }) {
-  const { email, username, statut, _id } = route.params || {};
-  
-  let [user] = useState({});
+  const { email, username, statut, _id, historique_partie} = route.params || {};
+
+  const [historiquePartie, setHistoriquePartie] = useState({});
+  useEffect(() => {
+    if (historique_partie && Object.keys(historique_partie).length !== 0) {
+      setHistoriquePartie(historique_partie);
+    }
+  }, [historique_partie]);
+
+  let [user, setUser] = useState({});
   const [errorMessage, setErrorMessage] = useState('');
   const navigation = useNavigation();
 
   const handleDeleteAccount = async () => {
     if (statut == 'player') {
       try {
-        const searchUser = await axios.get(`http://10.0.0.3/SearchUser/${email}/${username}`);
+        const searchUser = await axios.get(`http://10.0.0.3:80/SearchUser/${email}/${username}`);
         const user = searchUser.data.results; 
         if(user){
           Alert.alert(
@@ -31,7 +38,7 @@ function HomeScreen({ route }) {
                 text: "Supprimer",
                 onPress: async () => {
                   try {
-                    await axios.delete(`http://10.0.0.3/DeleteUserById/${user._id}`);
+                    await axios.delete(`http://10.0.0.3:80/DeleteUserById/${user._id}`);
                     navigation.navigate('Home');
                     setErrorMessage('');
                   } catch (error) {
@@ -51,9 +58,35 @@ function HomeScreen({ route }) {
     }
   };
 
+  const handleGameAbandon = async () => {
+    Alert.alert(
+      'Abandon de la partie',
+      'Êtes-vous sûr de vouloir abandonner la partie ?',
+      [
+        {
+          text: "Annuler",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        },
+        {
+          text: "Abandonner",
+          onPress: async() => {
+            try {
+              await axios.put(`http://10.0.0.3:80/updateUserPartie/${_id}`, {id_user: _id, id_partie: historique_partie._id, game_statut: "terminée"});
+              setHistoriquePartie(null); // Mise à jour de l'état de historique_partie
+              setErrorMessage('');
+            } catch (error) {
+              setErrorMessage(error.message);
+            }
+          }
+        }
+      ]
+    );
+  };
+
   const handleLogout = () => {
     navigation.navigate('Home');
-    user = {};
+    setUser({});
     setErrorMessage('');
   };
 
@@ -66,10 +99,22 @@ function HomeScreen({ route }) {
           <Text style={styles.error}>{errorMessage}</Text>
         )}
 
-        {statut ==="player" && (
-        <TouchableOpacity style={styles.btnStart} onPress={() => navigation.navigate('Synopsis', {_id})}>
-          <Text style={styles.text}>Jouer</Text>
-        </TouchableOpacity>
+        {statut === "player" && (!historiquePartie || Object.keys(historiquePartie).length === 0) && (
+          <TouchableOpacity style={styles.btnStart} onPress={() => navigation.navigate('Synopsis', {_id, email, username, statut})}>
+            <Text style={styles.text}>Commencer</Text>
+          </TouchableOpacity>
+        )}
+
+        {statut === "player" && historiquePartie && Object.keys(historiquePartie).length !== 0 && (
+        <>
+          <TouchableOpacity style={styles.btnStart} onPress={() => navigation.navigate('GameMaps', {id_user: _id, hero: historique_partie.hero, email, username, statut, id_partie: historique_partie._id, game_statut: historique_partie.game_statut, force: historique_partie.characteristics.force, charisme: historique_partie.characteristics.charisme, endurance: historique_partie.characteristics.endurance, sante: historique_partie.characteristics.sante})}>
+            <Text style={styles.text}>Continuer la partie</Text>
+          </TouchableOpacity>
+          
+          <TouchableOpacity style={styles.btnStart} onPress={handleGameAbandon}>
+            <Text style={styles.text}>Abandonner la partie</Text>
+          </TouchableOpacity>
+        </>
         )}
 
         <TouchableOpacity style={styles.btnStart} onPress={() => navigation.navigate('Règles')}>
@@ -102,14 +147,17 @@ function HomeScreen({ route }) {
 
 
         {email && username && statut && (
-        <TouchableOpacity style={styles.btnStart} onPress={handleLogout}>
-          <Text style={styles.text}>Déconnexion</Text>
-        </TouchableOpacity>
+        <>
+          <TouchableOpacity style={styles.btnStart} onPress={handleLogout}>
+            <Text style={styles.text}>Déconnexion</Text>
+          </TouchableOpacity>
+          <View style={styles.userContainer_info}>
+            {username && <Text style={styles.text}>Username: {username}</Text>}
+            {email && <Text style={styles.text}>Email: {email}</Text>}
+            {statut && <Text style={styles.text}>Statut: {statut}</Text>}
+          </View>
+        </>
         )}
-        
-        {username && <Text style={styles.text}>Username: {username}</Text>}
-        {email && <Text style={styles.text}>Email: {email}</Text>}
-        <Text style={{color:"white"}}>{statut}</Text>
       </ImageBackground>
     </View>
   );
@@ -170,6 +218,20 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     fontFamily: 'monospace',
+    textAlign: 'center',
+  },
+  error: {
+    color: '#f00',
+    fontSize: 20,
+    fontWeight: 'bold',
+    fontFamily: 'monospace',
+    marginBottom: 20,
+  },
+  userContainer_info: {
+    alignItems: 'flex-start',
+    backgroundColor: 'black',
+    opacity: 0.5,
+    padding: 10,
   },
 });
 

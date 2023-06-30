@@ -4,7 +4,7 @@ import MapView, { Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
 
 function GameMaps({ route, navigation }) {
-    const { _id, hero, force, charisme, endurance, sante } = route.params || {};
+    const { id_user, _id, id_partie, hero, email, username, statut, game_statut, force, charisme, endurance, sante } = route.params || {};
 
     let getImgHero;
     if (hero === 'male') {
@@ -59,7 +59,24 @@ function GameMaps({ route, navigation }) {
     };
     const handleStartHistory = () => {
         setShowStartButton(false);
-        navigation.navigate('Start_Game', { _id, hero, force, charisme, endurance, sante });
+        navigation.navigate('Start_Game', { id_user, hero, force, charisme, endurance, sante });
+    };
+
+    const historiquePartie = {
+        _id: id_partie,
+        id_user: id_user,
+        characteristics: {
+            force: force,
+            charisme: charisme,
+            endurance: endurance,
+            sante: sante,
+        },
+        game_statut: game_statut,
+        hero: hero,
+    };
+
+    const goToHome = () => {
+        navigation.navigate('Home', { email, username, statut, _id: id_user, historique_partie: historiquePartie });
     };
 
     return (
@@ -115,6 +132,14 @@ function GameMaps({ route, navigation }) {
                             <TouchableOpacity style={styles.zoom_btn} onPress={zoomOut}>
                                 <Text style={styles.zoom_text}>(-) Zoom Map</Text>
                             </TouchableOpacity>
+                            <TouchableOpacity
+                                style={styles.goHome_btn}
+                                onPress={goToHome}>
+                                <Text style={styles.goHome_text}>Accueil</Text>
+                            </TouchableOpacity>
+                            {historiquePartie.game_statut === 'en cours' && (
+                                <Text style={styles.game_statut}>Partie en cours</Text>
+                            )}
                         </View>
                     </View>
                 </>
@@ -201,7 +226,25 @@ const styles = StyleSheet.create({
         color: '#FFFFFF',
         fontSize: 18,
         fontWeight: 'bold',
-    }
+    },
+    
+    goHome_btn: {
+        backgroundColor: '#000000',
+        padding: 5,
+        borderRadius: 10,
+    },
+    goHome_text: {
+        color: '#FFFFFF',
+        textAlign: 'center',
+        fontSize: 18,
+        fontWeight: 'bold',
+    },
+    game_statut: {
+        color: '#FFFFFF',
+        textAlign: 'center',
+        fontSize: 13,
+        fontWeight: 'bold',
+    },
 });
 
 export default GameMaps;
