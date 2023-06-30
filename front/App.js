@@ -1,6 +1,10 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
+// Gestion action retour
+import { useEffect } from 'react';
+import { BackHandler, Alert } from 'react-native';
+
 // Home screen - main menu
 import HomeScreen from './screens/HomeScreen';
 import Regles from './screens/Regles';
@@ -46,6 +50,24 @@ import Update_Histoire from './screens/Histoire/Form_Histoire/Update_Histoire';
 
 const Stack = createNativeStackNavigator();
 export default function App() {
+
+  const handleBackPress = () => {
+    Alert.alert("Attention !", "Êtes-vous sûr de vouloir quitter l'application ?", [
+      {
+        text: "Annuler",
+        onPress: () => null,
+        style: "cancel"
+      },
+      { text: "Oui", onPress: () => BackHandler.exitApp() }
+    ]);
+    return true;
+  };
+  
+  useEffect(() => {
+    BackHandler.addEventListener('hardwareBackPress', handleBackPress);
+    return () => BackHandler.removeEventListener('hardwareBackPress', handleBackPress);
+  }, []);
+
   return (
     <NavigationContainer>
       <Stack.Navigator
