@@ -1,8 +1,8 @@
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, CommonActions } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 // Gestion action retour
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { BackHandler, Alert } from 'react-native';
 
 // Home screen - main menu
@@ -50,6 +50,22 @@ import Update_Histoire from './screens/Histoire/Form_Histoire/Update_Histoire';
 
 const Stack = createNativeStackNavigator();
 export default function App() {
+  const [emptyParams, setEmptyParams] = useState({});
+  let navigationRef = null;
+  
+  const redirectToHome = () => {
+    navigationRef?.dispatch(
+      CommonActions.reset({
+        index: 0,
+        routes: [
+          { 
+            name: 'Home',
+            params: emptyParams
+          }
+        ],
+      })
+    );
+  };
 
   const handleBackPress = () => {
     Alert.alert("Attention !", "Êtes-vous sûr de vouloir quitter l'application ?", [
@@ -58,7 +74,11 @@ export default function App() {
         onPress: () => null,
         style: "cancel"
       },
-      { text: "Oui", onPress: () => BackHandler.exitApp() }
+      { text: "Oui", onPress: () => {
+          redirectToHome();
+          BackHandler.exitApp() 
+        }
+      }
     ]);
     return true;
   };
@@ -69,7 +89,7 @@ export default function App() {
   }, []);
 
   return (
-    <NavigationContainer>
+    <NavigationContainer ref={nav => {navigationRef = nav}}>
       <Stack.Navigator
         ScreenOptions={{gestureEnabled: false}}>
         
