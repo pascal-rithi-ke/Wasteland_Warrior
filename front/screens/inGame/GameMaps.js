@@ -3,6 +3,10 @@ import { View, Image, TouchableOpacity, StyleSheet, Text, Alert } from 'react-na
 import MapView, { Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
 
+import { Audio } from 'expo-av';
+
+import mapStyle from './style/mapStyle.js';
+
 function GameMaps({ route, navigation }) {
     const { id_user, _id, id_partie, hero, email, username, statut, game_statut, force, charisme, endurance, sante } = route.params || {};
 
@@ -27,6 +31,73 @@ function GameMaps({ route, navigation }) {
             }
         })();
     }, []);
+
+    const [sound, setSound] = useState(null);
+    const [isPlaying, setIsPlaying] = useState(false);
+    const [position, setPosition] = useState(0);
+
+    useEffect(() => {
+        loadSound();
+
+        // Nettoyage lors du démontage de l'écran
+        return () => {
+            unloadSound();
+        };
+    }, []);
+
+    const loadSound = async () => {
+        try {
+            if (sound) {
+                await sound.stopAsync(); // Arrêter le son actuel s'il y en a un en cours
+            }
+
+            const { sound: newSound } = await Audio.Sound.createAsync(
+                require('./feature/music/game_bgm.mp3'),
+                { shouldPlay: true, isLooping: true },
+                onPlaybackStatusUpdate // Ajouter la fonction de mise à jour de l'état de lecture
+            );
+            setSound(newSound);
+            setIsPlaying(true);
+        } catch (error) {
+            console.log('Erreur lors du chargement du son', error);
+        }
+    };
+
+    const unloadSound = async () => {
+        try {
+            if (sound) {
+                await sound.stopAsync();
+                await sound.unloadAsync();
+                setSound(null);
+                setIsPlaying(false);
+            }
+        } catch (error) {
+            console.log('Erreur lors du déchargement du son', error);
+        }
+    };
+
+    const togglePlayback = async () => {
+        try {
+            if (sound) {
+                if (isPlaying) {
+                    await sound.pauseAsync();
+                    setPosition(await sound.getStatusAsync().then(({ position }) => position)); // Sauvegarder la position actuelle de lecture
+                } else {
+                    await sound.playFromPositionAsync(position); // Reprendre la lecture à partir de la position sauvegardée
+                }
+                setIsPlaying(!isPlaying);
+            }
+        } catch (error) {
+            console.log('Erreur lors de la gestion de la lecture', error);
+        }
+    };
+
+    const onPlaybackStatusUpdate = async (status) => {
+        if (status.didJustFinish) {
+            // La musique s'est terminée, remettre la position de lecture à 0
+            setPosition(0);
+        }
+    };
 
     // Ajoutez ces deux lignes pour gérer le niveau de zoom
     const [latitudeDelta, setLatitudeDelta] = useState(0.0922);
@@ -86,7 +157,7 @@ function GameMaps({ route, navigation }) {
                     <MapView
                         ref={mapRef} // Ajoutez cette ligne pour lier la référence à votre MapView
                         style={styles.map}
-                        userInterfaceStyle="dark"
+                        customMapStyle={mapStyle}
                         initialRegion={{
                             latitude: location.latitude,
                             longitude: location.longitude,
@@ -120,26 +191,32 @@ function GameMaps({ route, navigation }) {
                     <View style={styles.infoPerso}>
                         <Image source={getImgHero} style={styles.heroImg} />
                         <View style={styles.container_stat}>
+                            <Text style={styles.statis}>Statistiques</Text>
                             <Text style={styles.stat}>Force : {force}</Text>
                             <Text style={styles.stat}>Charisme : {charisme}</Text>
                             <Text style={styles.stat}>Endurance : {endurance}</Text>
                             <Text style={styles.stat}>Santé : {sante}</Text>
+                            <Text style={styles.stat}>Genre : {hero}</Text>
                         </View>
                         <View style={styles.container_zoom}>
                             <TouchableOpacity style={styles.zoom_btn} onPress={zoomIn}>
-                                <Text style={styles.zoom_text}>(+) Zoom Map</Text>
+                                <Text style={styles.zoom_text}>( + ) Zoom Map</Text>
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.zoom_btn} onPress={zoomOut}>
-                                <Text style={styles.zoom_text}>(-) Zoom Map</Text>
+                                <Text style={styles.zoom_text}>( - ) Zoom Map</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity
-                                style={styles.goHome_btn}
-                                onPress={goToHome}>
-                                <Text style={styles.goHome_text}>Accueil</Text>
-                            </TouchableOpacity>
-                            {historiquePartie.game_statut === 'en cours' && (
-                                <Text style={styles.game_statut}>Partie en cours</Text>
-                            )}
+                            <View style={styles.bottomContainer}>
+                                <TouchableOpacity
+                                    style={styles.playMusic_btn}
+                                    onPress={togglePlayback}>
+                                    <Text style={styles.playMusic_text}>{isPlaying ? '🔈' : '🔊'}</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity
+                                    style={styles.goHome_btn}
+                                    onPress={goToHome}>
+                                    <Text style={styles.goHome_text}>Accueil</Text>
+                                </TouchableOpacity>
+                            </View>
                         </View>
                     </View>
                 </>
@@ -200,12 +277,18 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-around',
-        paddingRight: 5,
+        paddingLeft: 10,
+        paddingRight: 10,
+        marginTop: 20,
     },
-    stat: {
+    statis: {
         color: '#FFFFFF',
         fontSize: 18,
         fontWeight: 'bold',
+    },
+    stat: {
+        color: '#FFFFFF',
+        fontSize: 16,
     },
 
     container_zoom: {
@@ -213,13 +296,20 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'space-around',
         paddingLeft: 10,
-        borderLeftWidth: 2,
         borderLeftColor: '#FFFFFF',
+        borderLeftWidth: 1,
     },
     zoom_btn: {
-        backgroundColor: '#000000',
-        padding: 5,
-        borderRadius: 10,
+        backgroundColor: '#0e8210',
+        borderRadius: 15,
+        borderColor: '#14f819',
+        borderWidth: 3,
+        fontWeight: 'bold',
+        padding: 10,
+        textAlign: 'center',
+        justifyContent: 'center',
+        alignItems: 'center',
+        fontFamily: 'monospace',
         marginBottom: 10,
     },
     zoom_text: {
@@ -227,11 +317,27 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold',
     },
-    
+    bottomContainer: {
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+        alignItems: 'flex-end',
+        marginTop: 10,
+        bottom: 10,
+        right: 10,
+    },
     goHome_btn: {
-        backgroundColor: '#000000',
+        backgroundColor: '#0e8210',
+        borderRadius: 15,
+        borderColor: '#14f819',
+        borderWidth: 3,
+        fontWeight: 'bold',
         padding: 5,
-        borderRadius: 10,
+        width: 80,
+        textAlign: 'center',
+        justifyContent: 'center',
+        alignItems: 'center',
+        fontFamily: 'monospace',
+        marginBottom: 10,
     },
     goHome_text: {
         color: '#FFFFFF',
@@ -239,12 +345,27 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold',
     },
-    game_statut: {
+
+    playMusic_btn: {
+        backgroundColor: '#0e8210',
+        borderRadius: 15,
+        borderColor: '#14f819',
+        borderWidth: 3,
+        fontWeight: 'bold',
+        padding: 5,
+        width: 60,
+        textAlign: 'center',
+        justifyContent: 'center',
+        alignItems: 'center',
+        fontFamily: 'monospace',
+        marginBottom: 10,
+    },
+    playMusic_text: {
         color: '#FFFFFF',
         textAlign: 'center',
-        fontSize: 13,
+        fontSize: 18,
         fontWeight: 'bold',
-    },
+    }
 });
 
 export default GameMaps;
